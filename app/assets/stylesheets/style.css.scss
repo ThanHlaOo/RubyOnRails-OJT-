@@ -1,0 +1,129 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+h1 {
+   
+}
+a {
+    display: block;
+    color:#00d2ff;
+    text-decoration: none;
+    margin-bottom: 35px;
+}
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+.login-header {
+    color: white;
+    font-size: 22px;
+    padding: 10px;
+    background-color: #00693e;
+
+}
+.login-header h1{
+    font-size: 22px;
+}
+form {
+    margin: 0 auto;
+    width: 585px;
+    margin-top: 15px;
+}
+.register-form {
+    margin: 0 auto;
+    width: 800px;
+}
+.input-group {
+    margin: 10px 0;
+}
+.errors {
+    color: #000;
+    padding: 10px;
+    background-color: #F1C2C0;
+    font-weight: 500;
+    border-radius: 4px;
+}
+a:hover {
+    text-decoration: underline;
+}
+label {
+    margin-right: 10px;
+}
+tr td:first-child {
+    text-align: right;
+}
+table tr {
+    margin: 15px 0;
+}
+tr input {
+    width: 350px;
+    padding: 10px;
+    margin-bottom: 14px;
+}
+.input-group input {
+    width: 445px;
+    padding: 10px;
+}
+.input-group.btn-group {
+    margin-left: 116px;
+}
+.input-group.register-btn-group {
+    text-align: left;
+}
+input[type="checkbox"]{
+    width: 20px;
+    float: left;
+    margin-left: 110px;
+}
+.forget-password {
+    float: right;
+    margin-bottom: 9px;
+}
+.login-btn {
+    width: 470px;
+    background-color: #00693e;
+    color: #fff;
+    padding: 9px 15px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+    margin-bottom: 9px;
+}
+.login-btn:hover {
+    background-color: #fff;
+    color: #00693e;
+    border: 1px solid #00693e;
+}
+.password-label {
+    margin-right: 46px;
+}
+.register-btn {
+    padding: 8px 24px;
+    background-color: #3B71CA;
+    color: #fff;
+    border-radius: 4px;
+    border: 1px solid transparent;
+}
+.register-btn:hover {
+    color: #3B71CA;
+    background-color: #fff;
+    border: 1px solid #3B71CA;
+}
+.clear-btn {
+    color: #fff;
+    border: 1px solid transparent;
+    background-color: #9FA6B2;
+    padding: 8px 24px;
+    border-radius: 4px;
+}
+.clear-btn:hover {
+    color: #9FA6B2;
+    border: 1px solid #9FA6B2;
+    background-color: #fff;
+}
+.login-link {
+    font-size: 23px;
+    display: inline-block;
+    margin-left: 12px
+}

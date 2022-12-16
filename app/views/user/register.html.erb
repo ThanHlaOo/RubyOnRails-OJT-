@@ -1,0 +1,63 @@
+<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<div class="login-header">
+  <h1> Sign Up </h1>
+</div>
+
+<div>
+  <% if flash[:register_errors] %>
+    <% flash[:register_errors].each do |error| %>
+      <p class="errors"> <%= error%></p>
+    <% end %>
+  <% end%>
+</div>
+<form action = "/register" method = "POST" enctype="multipart/form-data" class="register-form"> 
+ <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+ <table class="">
+ <tr>
+  <td>
+    <label> Name </label>
+  </td>
+  <td>
+    <input type="text"  name="user[name]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> E-Mail Address </label>
+  </td>
+  <td>
+    <input type="email"  name="user[email]">
+  </td>
+ </tr>
+  <tr>
+  <label>
+  <td>
+    <label> Password </label>
+  </td>
+  <td>
+    <input type="password"  name="user[password]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Password_Confirmation </label>
+  </td>
+  <td>
+    <input type="password"  name="user[confirm_password]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+   <button type="submit" class="register-btn">Create</button>
+    <button type="reset" class="clear-btn">Clear</button>
+    <a href="/login" class="login-link">sign in</a>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+  
+</form>

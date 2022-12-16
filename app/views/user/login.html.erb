@@ -1,0 +1,47 @@
+<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<div class="login-header">
+  <h1> Log in  </h1>
+  <div>
+</div>
+
+</div>
+ <% if flash[:login_errors] %>
+    <%  flash[:login_errors].each do |error| %>
+      <p  class="errors"> <%= error%></p>
+    <% end %>
+  <% end%>
+<form action = "/login" method = "POST"> 
+  <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+  <div class="input-group">
+      <label for="email">Email Address:</label>
+      <input type="email"  name="login[email]" id="email" >
+      <div class="error">
+        <% if @user.errors[:email].any? %>
+          <%= @user.errors[:email].to_sentence %>
+        <% end%>
+      </div>
+    
+  </div>
+  <div class="input-group">
+      <label for="password" class="password-label">Password:</label>
+      <input type="password" name="login[password]">
+      <div>
+        <% if flash[:validation_errors] %>
+          <%  flash[:validation_errors].each do |error| %>
+            <p  class="errors"> <%= error%></p>
+          <% end %>
+        <% end%>
+      </div>
+  </div>
+
+  <div class="input-group clearfix">
+    <input type="checkbox" name="login[remember-me]" >Remember Me
+    <a href="/forget" class="forget-password">forgotten password?</a>
+  </div>
+  
+  <div class="input-group btn-group">
+  <button type="submit" class="login-btn">Login</button>
+    <a href="/register">Create account?</a>
+    <i class="fa-solid fa-user-plus"></i>
+  </div>
+</form>
