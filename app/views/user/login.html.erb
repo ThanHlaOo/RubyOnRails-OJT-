@@ -16,21 +16,22 @@
       <label for="email">Email Address:</label>
       <input type="email"  name="login[email]" id="email" >
       <div class="error">
-        <% if @user.errors[:email].any? %>
+               <% if @user.errors[:email].any? %>
           <%= @user.errors[:email].to_sentence %>
         <% end%>
+
       </div>
     
   </div>
   <div class="input-group">
       <label for="password" class="password-label">Password:</label>
       <input type="password" name="login[password]">
-      <div>
-        <% if flash[:validation_errors] %>
-          <%  flash[:validation_errors].each do |error| %>
-            <p  class="errors"> <%= error%></p>
-          <% end %>
-        <% end%>
+      <div class="error">
+        <% if flash[:error] %>
+  <div class="alert alert-error">
+    <%= flash[:error].join(', ') %>
+  </div>
+<% end %>
       </div>
   </div>
 

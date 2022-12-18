@@ -3,30 +3,21 @@ class UserController < ApplicationController
   end
   def login
     @user = User.new
-    # render "login", user: @user
   end
   
   def create
     @user = User.find_by(email:login_params[:email])
+    if @user && @user.authenticate(login_params[:password])
+      session[:user_id] = @user.id
+      redirect_to '/'
 
-    if @user.valid?
-      if @user && @user.authenticate(login_params[:password])
-        session[:user_id] = @user.id
-        redirect_to '/'
-  
-      elsif !@user 
-        flash[:login_errors] = ['Email does not Exit!']
-        redirect_to '/login'
-      else
-        flash[:login_errors] = ['Incorrect Password!']
-        redirect_to '/login'
-      end
-  
-    else 
-    # render :login
-    redirect_to '/articles'
-    # render json: {errors: user.errors.full_messages},status: :not_acceptable
-    end
+    elsif !@user 
+      flash[:login_errors] = ['Email does not Exit!']
+      render :login
+    else
+      flash[:login_errors] = ['Incorrect Password!']
+      render :login
+    end 
   end
   def register
 
