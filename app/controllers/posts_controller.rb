@@ -16,8 +16,13 @@ class PostsController < ApplicationController
       flash[:post_created] = ['Post Successfully Created.']
       redirect_to "/posts"
     else
-      flash.now[:error] = @post.errors.full_messages
+      #flash.now[:error] = @post.errors.full_messages
+      #flash[:error] = @post.errors.full_messages.join(", ")
+      #@post =  @post.errors
+      @post = @post.errors
+      puts @post
       render :new
+      #render '/posts/new'
       # puts @post.errors.full_messages
     end
   end 
