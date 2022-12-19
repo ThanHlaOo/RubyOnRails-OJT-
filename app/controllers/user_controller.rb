@@ -9,14 +9,14 @@ class UserController < ApplicationController
     @user = User.find_by(email:login_params[:email])
     if @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
-      redirect_to '/'
+      redirect_to '/articles'
 
     elsif !@user 
       flash[:login_errors] = ['Email does not Exit!']
-      render :login
+      redirect_to '/login'
     else
       flash[:login_errors] = ['Incorrect Password!']
-      render :login
+      redirect_to '/login'
     end 
   end
   def register

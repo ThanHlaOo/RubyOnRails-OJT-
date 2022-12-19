@@ -1,0 +1,48 @@
+
+
+<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<div class="login-header">
+  <h1> Create Post </h1>
+</div>
+
+<div>
+  <% if flash[:register_errors] %>
+    <% flash[:register_errors].each do |error| %>
+      <p class="errors"> <%= error%></p>
+    <% end %>
+  <% end%>
+</div>
+<form action = "/posts" method = "POST" class="create-form register-form"> 
+ <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+ <table class="">
+ <tr>
+  <td>
+    <label> Title: </label>
+  </td>
+  <td>
+    <input type="text"  name="post[title]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Description: </label>
+  </td>
+  <td>
+    <input type="text"  name="post[description]">
+  </td>
+ </tr>
+  
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+   <button type="submit" class="register-btn">Create</button>
+    <button type="reset" class="clear-btn">Clear</button>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+  
+</form>

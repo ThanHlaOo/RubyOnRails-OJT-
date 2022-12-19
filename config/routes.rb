@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get "/articles", to: "article#index"
   get "/articles/:id", to: "article#show"
 
+  resources :posts
   get "/login", to: "user#login"
   post "/login", to: "user#create"
   get "/register", to: "user#register"

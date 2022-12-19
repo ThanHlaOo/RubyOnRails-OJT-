@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_16_014237) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_15_052253) do
   create_table "articles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "title"
     t.text "body"
@@ -40,7 +40,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_16_014237) do
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
-    t.text "password", null: false
+    t.string "password_digest", null: false
     t.string "profile", null: false
     t.string "role", limit: 1, default: "1"
     t.string "phone", limit: 20
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_16_014237) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.timestamp "deleted_at"
-    t.string "password_digest"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
 end

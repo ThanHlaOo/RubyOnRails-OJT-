@@ -9,7 +9,7 @@
 user = User.new(
     name: 'Admin',
     email: 'admin@admin.com',
-    password: '12345678',
+    password: 'super_secret',
     profile: 'default_img.png',
     role: "1",
     phone: "09778202283",
@@ -18,3 +18,11 @@ user = User.new(
     updated_user_id: "1"
   )
   user.save
+post = Post.new(
+    title: 'Myanmar',
+    description: 'this is description',
+    status: 1,
+    create_user_id: 1,
+    updated_user_id: 1,
+  )
+  post.save
