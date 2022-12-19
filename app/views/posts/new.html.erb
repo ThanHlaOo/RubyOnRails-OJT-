@@ -21,6 +21,26 @@
   </td>
   <td>
     <input type="text"  name="post[title]">
+    <div class="error">
+      <% @post.errors.full_messages_for(:title).each do |message| %>
+        <%= message %>
+      <% end %>
+      <% if flash[:error] %>
+        <div class="error">
+          <%= flash[:error] %>
+        </div>
+      <% end %>
+       <% if @post.errors.any? %>
+     <% @post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+      <% end %>
+      <% end %>
+ <% if @post.errors.any? %>
+      <% @post.errors.full_messages.each do |message| %>
+            <%= message %>
+        <% end %>
+  <% end %>
+    </div>
   </td>
  </tr>
   <tr>
