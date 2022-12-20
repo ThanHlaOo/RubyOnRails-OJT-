@@ -1,25 +1,28 @@
 
 
 window.onload = function () {
-    const modal = document.querySelector("#myModal");
+    const delete_modal = document.querySelector("#delete-modal");
+    const detail_modal = document.querySelector("#detail-modal")
     const btn = document.querySelector("#post-title");  
     const closeModal = document.querySelector("#close");
     btn.onclick = function (e) {
       e.preventDefault();
       alert('hi')
-    modal.style.display = "block";
-
+    detail_modal.style.display = "block";
+      console.log("clicked")
     };
     
     closeModal.onclick = function (e) {
         // e.preventDefault();
-        modal.style.display = "none";
+        detail_modal.style.display = "none";
+      delete_modal.style.display = "none";
     };
  
   };
 
 
-  window.onclick = function (event) {
+window.onclick = function (event) {
+  const modal = document.querySelector(".myModal");
     if (event.target == modal) {
       modal.style.display = "none";
     }

@@ -55,7 +55,7 @@
     <tr>       
       <td>
           <a href="/posts/<%= post.id%>" id="post-title" > <%= post.title %></a>
-         <%= render partial: "posts/detail_modal", collection: post %>
+         <%= render partial: "posts/detail_modal", locals: {post: post} %>
         </td>
         <td>
           <%=  post.description%>
@@ -70,7 +70,7 @@
           
           <%= link_to "Edit", edit_post_path(post), class: "edit-btn" %>
           <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-btn"  %>
-           <%= render partial: "posts/delete_modal", collection: post %>
+           <%= render partial: "posts/delete_modal", locals: {post: post} %>
         </td>
     </tr>
     
