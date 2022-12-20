@@ -2,7 +2,7 @@
 
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
 <div class="login-header">
-  <h1> Create Post </h1>
+  <h1> Edit Post </h1>
 </div>
 
 <div>
@@ -12,8 +12,9 @@
     <% end %>
   <% end%>
 </div>
-<form action = "/posts-confirm" method = "GET" class="create-form register-form"> 
+<form action = "/posts-edit-confirm" method = "GET" class="create-form register-form"> 
  <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+ <input type ="hidden" name ="post[id]" value="<%= @post.id%>">
  <table class="">
  <tr>
   <td>
@@ -33,7 +34,7 @@
     <label> Description: </label>
   </td>
   <td>
-     <textarea name="post[description]" rows="4" cols="50"><%= @post.description%></textarea>
+     <textarea name="post[description]" rows="10" cols="50"><%= @post.description%></textarea>
       <div class="validation-error">
         <% @post.errors.full_messages_for(:description).each do |message| %>
           <%= message %>
@@ -41,13 +42,29 @@
     </div>
   </td>
  </tr>
-  
+  <tr>
+  <td>
+    <label> Status: </label>
+  </td>
+  <td>
+    <div class="input-group">
+    <label class="switch">
+        <% if @post.status%>
+            <input type="checkbox" name="post[status]" checked>
+        <% else%>
+            <input type="checkbox" name="post[status]">
+        <% end %>
+        <span class="slider round"></span>
+    </label>
+    </div>
+  </td>
+ </tr>
   <tr>
   <td>
   </td>
   <td>
   <div class="input-group register-btn-group">
-   <button type="submit" class="register-btn">Create</button>
+   <button type="submit" class="register-btn">Edit</button>
     <button type="reset" class="clear-btn">Clear</button>
  </div>
   </td>

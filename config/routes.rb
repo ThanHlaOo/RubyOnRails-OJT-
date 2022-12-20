@@ -11,6 +11,9 @@ Rails.application.routes.draw do
   get "/register", to: "user#register"
   post "/register", to: "user#saveRegister"
   get "/logout", to: "user#logout"
+  get "/posts-confirm", to: "posts#confirm"
+  get "/posts-edit-confirm", to: "posts#editConfirm"
+  patch '/posts/:id', to: 'posts#update'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

@@ -1,0 +1,49 @@
+
+
+<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<div class="login-header">
+  <h1> Confirm Post </h1>
+</div>
+
+<div>
+  <% if flash[:register_errors] %>
+    <% flash[:register_errors].each do |error| %>
+      <p class="errors"> <%= error%></p>
+    <% end %>
+  <% end%>
+</div>
+<form action = "/posts" method = "POST" class="create-form register-form"> 
+ <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+ <table class="">
+ <tr>
+  <td>
+    <label> Title: </label>
+  </td>
+  <td>
+    <input type="text"  name="confirm[title]" value="<%= @post.title%>" readonly="true" >
+    
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Description: </label>
+  </td>
+  <td>
+    <textarea name="confirm[description]" rows="4" cols="50" readonly="true"><%= @post.description%></textarea>
+  </td>
+ </tr>
+  
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+   <button type="submit" class="register-btn">Comfirm</button>
+    <a href="posts/new" class="clear-btn">Cancel</a>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+  
+</form>

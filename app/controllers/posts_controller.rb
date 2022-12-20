@@ -1,37 +1,66 @@
 class PostsController < ApplicationController
+  before_action :check_permissions, only: [:index, :new, :confirm]
   def index
     # @posts = Post.all
-    @posts = Post.all.paginate(page: params[:page], per_page: 10)
+    @posts = Post.paginate(page: params[:page], per_page: 11)
   end
   def new
     @post = Post.new
+    # if params
+
+    # else
+    #   @post = Post.new(post_params)
+      
+    # end
+
+    
+  end
+  def confirm
+    @post = Post.new(post_params)
+    # render :new unless @post.valid?
   end
   def create
-  puts post_params
-    @post = Post.new(post_params)
-    @post.status = 1
-    @post.create_user_id = session[:user_id]
-    @post.updated_user_id = session[:user_id]
-    if @post.save
-      flash[:post_created] = ['Post Successfully Created.']
-      redirect_to "/posts"
-    else
-      #flash.now[:error] = @post.errors.full_messages
-      #flash[:error] = @post.errors.full_messages.join(", ")
-      #@post =  @post.errors
-      @post = @post.errors
-      puts @post
-      render :new
-      #render '/posts/new'
-      # puts @post.errors.full_messages
-    end
+  @confirm_post = Post.new(confirm_post_params)
+  @confirm_post.status = 1
+  @confirm_post.create_user_id = session[:user_id]
+  @confirm_post.updated_user_id = session[:user_id]
+  if @confirm_post.save
+    flash[:post_created] = ['Post Successfully Created.']
+    redirect_to "/posts"
+  else
+  #   #flash.now[:error] = @confirm_post.errors.full_messages
+  #   #flash[:error] = @confirm_post.errors.full_messages.join(", ")
+    @confirm_post =  @confirm_post.errors
+    # render :new
+    render '/posts/new'
+  #   # puts @confirm_post.errors.full_messages
+  end
+
   end 
   def show 
-    @post = Post.find(params[:id])
+    # @post = Post.find(params[:id])
   end
   def edit
     @post = Post.find(params[:id])
+
   end
+  def editConfirm
+
+    @post =  Post.new(edit_post_params)
+    # render :new unless @post.valid?
+  end
+  def update
+    @post = Post.find(params[:id])
+    params[:status] = 0 unless params[:status] == "on"
+    if @post.update(edit_post_params)
+      flash[:post_updated] = ['Post Successfully Updated.']
+      redirect_to "/posts"
+    else
+      @post =  @post.errors
+      # render :new
+      render :edit
+    end
+  end 
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
@@ -41,5 +70,19 @@ class PostsController < ApplicationController
   private
     def post_params
       params.require(:post).permit(:title, :description)
+    end
+    private
+    def confirm_post_params
+      params.require(:confirm).permit(:title, :description)
+    end
+    private
+    def edit_post_params
+      params.require(:post).permit(:id, :title, :description, :status)
+    end
+    private
+    def check_permissions
+      unless session[:user_id]
+        redirect_to "/login"
+      end
     end
 end

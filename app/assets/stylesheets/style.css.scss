@@ -67,6 +67,9 @@ table {
 .input-group {
     margin: 10px 0;
 }
+.validation-error {
+    color: #d9534f;
+}
 .errors {
     color: #000;
     padding: 10px;
@@ -84,6 +87,20 @@ table {
 a:hover {
     text-decoration: underline;
 }
+.cancle-btn {
+    display: inline-block !important;
+    color: #fff;
+    border: 1px solid transparent;
+    background-color: #9FA6B2;
+    padding: 8px 24px;
+    border-radius: 4px;
+}
+.cancle-btn:hover {
+    color: #9FA6B2;
+    border: 1px solid #9FA6B2;
+    background-color: #fff;
+    text-decoration: none;
+}
 label {
     margin-right: 10px;
 }
@@ -96,14 +113,14 @@ table tr {
 tr input {
     width: 350px;
     padding: 10px;
-    margin-bottom: 14px;
+    margin-bottom: 0px;
 }
 .input-group input {
     width: 411px;
     padding: 10px;
 }
 .input-group.btn-group {
-    margin-left: 0px;
+    margin-left: 118px;
 }
 .input-group.register-btn-group {
     text-align: left;
@@ -116,10 +133,10 @@ input[type="checkbox"]{
 .forget-password {
     float: right;
     margin-bottom: 9px;
-    margin-right: 112px;
+    margin-right: 25px;
 }
 .login-btn {
-    width: 470px;
+    width: 444px;
     background-color: #00693e;
     color: #fff;
     padding: 9px 15px;
@@ -151,7 +168,17 @@ input[type="checkbox"]{
     border-radius: 4px;
     border: 1px solid transparent;
     display: inline-block;
-    margin-top: 24px;
+    margin-top: 22px;
+}
+.edit-confirm-btn {
+    width: 94px !important;
+    margin-top: 0px;
+}
+.edit-input {
+    margin-top: 10px;
+}
+.register-btn.edit-btn {
+    padding: 10px 24px;
 }
 .edit-btn:hover {
     background-color: #fff;
@@ -202,7 +229,7 @@ input[type="checkbox"]{
     border-collapse: collapse;
    
 }
-.post-title {
+#post-title {
     
     margin: 0;
 }
@@ -221,3 +248,221 @@ input[type="checkbox"]{
     color: #fff;
     font-weight: 900;
 }
+
+/** toggle switch **/
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 49px;
+    height: 22px;
+  }
+  
+  .switch input { 
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+  
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 21px;
+    width: 21px;
+    left: 2px;
+    bottom: 0px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+  
+  input:checked + .slider {
+    background-color: #2196F3;
+  }
+  
+  input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+  
+  input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+  
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+  
+  .slider.round:before {
+    border-radius: 50%;
+  }
+
+  /* The Modal (background) */
+#modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.5); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    margin: auto;
+    padding: 0;
+    width: 95%;
+    max-width: 60rem;
+    max-height: 33rem;
+    overflow: hidden;
+    border-radius: 2px;
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s;
+  
+    font-family: "Open Sans", sans-serif;
+    background: #fff;
+    -webkit-box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.08);
+    box-shadow: 0px 0px 19px 3px rgba(0, 0, 0, 0.08);
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .modal-content-left,
+  .modal-content-right {
+    flex: 0 1 auto;
+  }
+  
+  .modal-content-left {
+    flex: 2;
+  }
+  
+ 
+  .modal-content-right {
+    flex: 2;
+    max-width: 100%;
+    padding: 1rem 3rem;
+  }
+  
+  /* Add Animation */
+  @-webkit-keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+  
+  @keyframes animatetop {
+    from {
+      top: -300px;
+      opacity: 0;
+    }
+    to {
+      top: 0;
+      opacity: 1;
+    }
+  }
+  
+  /* The Close Button */
+  #close,
+  .close-imp {
+    color: #aaa;
+    font-size: 2rem;
+    font-weight: bold;
+    padding: 0 1rem;
+    border-radius: 2px;
+    transition: 0.4s ease-out;
+  }
+  
+  .close:hover,
+  .close:focus,
+  .close-imp:hover,
+  .close-imp:focus {
+    color: #111;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: "Patua One", cursive;
+    font-size: 3.5rem;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .modal-header p {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .modal-header,
+  .modal-body,
+  .modal-footer {
+    padding: 0.5rem 3rem;
+  }
+  
+  .modal-header {
+    padding-top: 2rem;
+  }
+  
+  .modal-footer {
+    padding-bottom: 2rem;
+  }
+  
+  /* ===== Page Content ===== */
+  
+  h1 {
+  }
+  
+  .container {
+    width: 100%;
+  }
+  
+  /* The Button */
+  
+  .btn {
+    display: block;
+    background: #222;
+    color: #fff;
+    padding: 1rem 2rem;
+    border: 1px solid #222;
+    font-size: 2rem;
+    margin: 3rem auto;
+    transition: all 0.4s ease-in;
+  }
+  
+  .btn:hover {
+    cursor: pointer;
+    color: #222;
+    background: #fff;
+  }
+  

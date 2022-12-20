@@ -9,7 +9,7 @@ class UserController < ApplicationController
     @user = User.find_by(email:login_params[:email])
     if @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
-      redirect_to '/articles'
+      redirect_to '/posts'
 
     elsif !@user 
       flash[:login_errors] = ['Email does not Exit!']

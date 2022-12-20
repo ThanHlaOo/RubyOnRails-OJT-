@@ -1,6 +1,7 @@
 
 
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<%= javascript_include_tag 'app' %>
 <div class="login-header">
   <h1> Post List</h1>
   
@@ -10,18 +11,25 @@
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
+  <% if flash[:post_updated] %>
+    <%  flash[:post_updated].each do |message| %>
+      <p  class="success"> <%= message%></p>
+    <% end %>
+  <% end%>
 <div class="input-group clearfix">
   <div class="list-btn-group">
    <form action="search" method="get" class="list-form">
     <label>keyword: </label>
     <input type="text" name="keyword" class="list-input">
     <button type="submit" class="register-btn list-btn">Search</button>
+    
   </form>
   <a href="/posts/new" class="list-btn register-btn">Create</a>
   <a href="/upload" class="list-btn register-btn">Upload </a>
   <a href="/download" class="list-btn register-btn">Download </a>
   </div>
 </div>
+
 <table class="post-table">
   <thead>
       <tr>
@@ -46,7 +54,8 @@
   <% @posts.each do |post| %>
     <tr>       
       <td>
-          <a href="/posts/<%= post.id%>" class="post-title"> <%= post.title   %></a>
+          <a href="/posts/<%= post.id%>" id="post-title" > <%= post.title %></a>
+         <%= render partial: "posts/detail_modal", collection: post %>
         </td>
         <td>
           <%=  post.description%>
@@ -61,6 +70,7 @@
           
           <%= link_to "Edit", edit_post_path(post), class: "edit-btn" %>
           <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-btn"  %>
+           <%= render partial: "posts/delete_modal", collection: post %>
         </td>
     </tr>
     
@@ -68,3 +78,5 @@
 
   </tbody>
 </table>
+
+

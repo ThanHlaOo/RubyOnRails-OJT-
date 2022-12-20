@@ -1,0 +1,74 @@
+
+
+<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<div class="login-header">
+  <h1> Edit Post </h1>
+</div>
+
+<div>
+  <% if flash[:register_errors] %>
+    <% flash[:register_errors].each do |error| %>
+      <p class="errors"> <%= error%></p>
+    <% end %>
+  <% end%>
+</div>
+
+<%= form_with(model: @post, url: post_path(@post), method: :patch, html: { class: 'create-form register-form' }) do |form| %>
+ <table class="">
+ <tr>
+  <td>
+      <%= form.label :title %>
+  </td>
+  <td>
+    
+  <%= form.text_field :title, value: @post.title, readonly: true%>
+    <div class="validation-error">
+      <% @post.errors.full_messages_for(:title).each do |message| %>
+        <%= message %>
+      <% end %>
+    </div>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <%= form.label :description %>
+  </td>
+  <td>
+      <%= form.text_area :description, value: @post.description, readonly: true, rows: 10, cols: 50, class: "edit-input" %>
+      <div class="validation-error">
+        <% @post.errors.full_messages_for(:description).each do |message| %>
+          <%= message %>
+        <% end %>
+    </div>
+  </td>
+ </tr>
+  <tr>
+  <td>
+     <%= form.label :status %>
+  </td>
+  <td>
+    <div class="input-group">
+    <label class="switch">
+        <%= form.check_box :status %>
+        <span class="slider round"></span>
+    </label>
+    </div>
+  </td>
+ </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+      <%= form.submit 'Update', class: "register-btn edit-btn edit-confirm-btn" %>
+      <%= link_to 'Cancel', edit_post_path(@post), class: 'cancle-btn' %>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+  
+<% end %>
+
+
+ 
