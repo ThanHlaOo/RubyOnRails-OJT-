@@ -1,8 +1,8 @@
 class PostsController < ApplicationController
-  before_action :check_permissions, only: [:index, :new, :confirm]
+  before_action :check_permissions, only: [:index, :new, :confirm, :edit, :editConfirm, :update, :delete]
   def index
     # @posts = Post.all
-    @posts = Post.paginate(page: params[:page], per_page: 11)
+    @posts = Post.paginate(page: params[:page], per_page: 10)
   end
   def new
     @post = Post.new
@@ -42,12 +42,21 @@ class PostsController < ApplicationController
   end
   def edit
     @post = Post.find(params[:id])
+  
 
   end
   def editConfirm
-
     @post =  Post.new(edit_post_params)
+    puts "this is comfirm status #{@post.status}"
+  #  render "editConfirm"
     # render :new unless @post.valid?
+  end
+  def search 
+    key = search_post_params
+    # @posts = Post.where("title LIKE ? OR description LIKE ?", "%#{key}%", "%#{key}%")
+    @posts = Post.find_by(email: email, description: key)
+    puts @posts
+    render :index
   end
   def update
     @post = Post.find(params[:id])
@@ -57,14 +66,16 @@ class PostsController < ApplicationController
       redirect_to "/posts"
     else
       @post =  @post.errors
-      # render :new
       render :edit
     end
   end 
   def destroy
+    puts "delete method"
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to posts_path, notice: "Post was successfully deleted."
+    flash[:post_deleted] = ['Post Successfully Deleted.']
+    redirect_to "/posts"
+    # redirect_to posts_path, notice: "Post was successfully deleted."
   end
 
   private
@@ -78,6 +89,10 @@ class PostsController < ApplicationController
     private
     def edit_post_params
       params.require(:post).permit(:id, :title, :description, :status)
+    end
+    private
+    def search_post_params
+      params.require(:post).permit(:keyword)
     end
     private
     def check_permissions

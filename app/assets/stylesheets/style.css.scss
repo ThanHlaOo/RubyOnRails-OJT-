@@ -11,6 +11,10 @@ a {
     text-decoration: none;
     margin-bottom: 35px;
 }
+a:hover {
+  text-decoration: none;
+  opacity: 0.7;
+}
 .clearfix::after {
     content: "";
     clear: both;
@@ -65,7 +69,7 @@ table {
     margin-top: 60px;
 }
 .input-group {
-    margin: 10px 0;
+    margin-top: 10px;
 }
 .validation-error {
     color: #d9534f;
@@ -85,7 +89,7 @@ table {
     padding: 10px;
 }
 a:hover {
-    text-decoration: underline;
+    text-decoration: none;
 }
 .cancle-btn {
     display: inline-block !important;
@@ -170,6 +174,23 @@ input[type="checkbox"]{
     display: inline-block;
     margin-top: 22px;
 }
+.modal-form {
+  margin: 0 auto;
+  width: 100% !important;
+  margin-top: 15px;
+
+}
+.modal-body > p {
+  
+  text-align: left;
+  font-size: 19px;
+  font-weight: 500;
+  margin-top: 5px;
+
+}
+.delete-modal-btn {
+  background-color: rgb(199, 61, 61);
+}
 .edit-confirm-btn {
     width: 94px !important;
     margin-top: 0px;
@@ -208,17 +229,22 @@ input[type="checkbox"]{
     background-color: #fff;
     border: 1px solid #3B71CA;
 }
+.table-btn-group {
+  margin-top: 14px;
+}
 .clear-btn {
     color: #fff;
     border: 1px solid transparent;
     background-color: #9FA6B2;
-    padding: 8px 24px;
+    padding: 7px 24px;
     border-radius: 4px;
+    display: inline-block;
 }
 .clear-btn:hover {
     color: #9FA6B2;
     border: 1px solid #9FA6B2;
     background-color: #fff;
+    text-decoration: none;
 }
 .login-link {
     font-size: 23px;
@@ -229,7 +255,7 @@ input[type="checkbox"]{
     border-collapse: collapse;
    
 }
-#post-title {
+.post-title {
     
     margin: 0;
 }
@@ -413,12 +439,24 @@ input[type="checkbox"]{
   .modal-header {
     display: flex;
     justify-content: space-between;
-    font-family: "Patua One", cursive;
-    font-size: 3.5rem;
     margin: 0;
-    padding: 0;
+    font-size: 27px;
+    padding: 0 0 18px;
+    border-bottom: 0.5px solid #000;
   }
-  
+  .modal-table {
+    padding: 16px;
+  }
+  .modal-table tr td:first-child {
+    font-weight: 700;
+    padding: 10px;
+  }
+  .modal-table tr td:last-child {
+    color: #d9534f;
+  }
+  .detail-close {
+    float: right;
+  }
   .modal-header p {
     margin: 0;
     padding: 0;
@@ -465,4 +503,82 @@ input[type="checkbox"]{
     color: #222;
     background: #fff;
   }
+
+  nav {
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    background-color: #D3D3D330;
+  }
   
+  nav ul li {
+    display: inline-block;
+    padding-top: 0px;
+    margin: 0 8px;
+  }
+  nav ul li a {
+    display: inline-block;
+    margin: 0;
+    text-decoration: none;
+    font-size: 22px;
+    color: #00693e;
+    font-weight: 700;
+  }
+  nav ul li:last-child {
+    margin: 0;
+  }
+  nav .left-nav {
+  
+  }
+  nav .right-nav {
+
+  }
+  nav form {
+    display: flex;
+    align-items: center;
+  }
+  
+  nav input[type="search"] {
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px 10px;
+    font-size: 14px;
+    width: 200px;
+  }
+  
+  nav button[type="submit"] {
+    background-color: #4caf50;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  nav button[type="submit"]:hover {
+    background-color: #3e8e41;
+  }
+  #dropdown-menu {
+    display: none;
+    padding: 0px 5px;
+    text-decoration: none;
+    position: absolute;
+    right: 9px;
+    top: 51px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    width: 212px;
+    border-radius: 5px;
+  }
+  #dropdown-menu.show-menu {
+    display: block;
+  }
+  #dropdown-menu a {
+    margin: 15px;
+  }

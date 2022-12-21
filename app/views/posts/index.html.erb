@@ -2,6 +2,7 @@
 
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
 <%= javascript_include_tag 'app' %>
+<%= render partial: "layouts/header" %>
 <div class="login-header">
   <h1> Post List</h1>
   
@@ -16,14 +17,19 @@
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
+    <% if flash[:post_deleted] %>
+    <%  flash[:post_deleted].each do |message| %>
+      <p  class="success"> <%= message%></p>
+    <% end %>
+  <% end%>
 <div class="input-group clearfix">
   <div class="list-btn-group">
-   <form action="search" method="get" class="list-form">
+ 
+  <%= form_with(url: '/search', method: :get, html: { class: 'list-form' }) do |form| %>
     <label>keyword: </label>
-    <input type="text" name="keyword" class="list-input">
+    <input type="text" name="post[keyword]">
     <button type="submit" class="register-btn list-btn">Search</button>
-    
-  </form>
+  <% end %>
   <a href="/posts/new" class="list-btn register-btn">Create</a>
   <a href="/upload" class="list-btn register-btn">Upload </a>
   <a href="/download" class="list-btn register-btn">Download </a>
@@ -51,32 +57,36 @@
       </tr>
   </thead>
   <tbody>
-  <% @posts.each do |post| %>
+  <% if @posts.empty? %>
+  <tr><td colspan="4" style="text-align: center; font-size:20px;padding:15px;">No data avaiable in table.</td></tr>
+  <% else %>
+    <% @posts.each do |post| %>
     <tr>       
       <td>
-          <a href="/posts/<%= post.id%>" id="post-title" > <%= post.title %></a>
-         <%= render partial: "posts/detail_modal", locals: {post: post} %>
+          <a href="<%= post.id%>" class="post-title" > <%= post.title %></a>
+          <%= render "detail_modal", post: post %>
         </td>
         <td>
           <%=  post.description%>
         </td>
         <td>
-          <%= post.user.name   %>
+          <%= post.user.name%>
         </td>
         <td>
           <%= post.created_at.strftime("%Y/%m/%d") %>
         </td>
         <td>
-          
-          <%= link_to "Edit", edit_post_path(post), class: "edit-btn" %>
-          <%= link_to "Delete", post_path(post), method: :delete, data: { confirm: 'Are you sure?' }, class: "delete-btn"  %>
-           <%= render partial: "posts/delete_modal", locals: {post: post} %>
+            <div class="table-btn-group">
+              <%= link_to "Edit", edit_post_path(post), class: "edit-btn" %>
+              <%= link_to "Delete", post_path(post), method: :delete, class: "delete-btn"  %>
+              <%= render partial: "posts/delete_modal", locals: {post: post} %>
+            </div>
         </td>
     </tr>
     
   <% end %>
-
+<% end %>
   </tbody>
 </table>
 
-
+    <%= render partial: "layouts/footer" %>

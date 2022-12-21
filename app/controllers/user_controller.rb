@@ -36,7 +36,7 @@ class UserController < ApplicationController
   end
   def logout 
     session[:user_id] = nil
-    redirect_to '/articles'
+    redirect_to '/login'
   end
   private
   def register_params

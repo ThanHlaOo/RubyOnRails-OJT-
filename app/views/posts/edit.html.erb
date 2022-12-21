@@ -45,11 +45,12 @@
   <tr>
   <td>
     <label> Status: </label>
+    
   </td>
   <td>
     <div class="input-group">
     <label class="switch">
-        <% if @post.status%>
+        <% if @post.status == 1 %>
             <input type="checkbox" name="post[status]" checked>
         <% else%>
             <input type="checkbox" name="post[status]">

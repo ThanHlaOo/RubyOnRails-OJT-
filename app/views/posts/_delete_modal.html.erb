@@ -1,25 +1,53 @@
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
 <%= javascript_include_tag 'app' %>
-<!-- The Modal -->
-<div id="delete-modal" class="myModal"> 
+
+
+<form action = "/posts/<%= post.id %>" method = "DELETE" class="modal-form"> 
+ <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+ <!-- The Modal -->
+   <div id="delete-modal_<%= post.id %>" class="myModal"> 
   <!-- Modal content -->
   <div class="modal-content">
-
+     
     <div class="modal-content-right">
-
+      
       <div class="modal-header">
-        <p>Are you sure to delete post?</p>
-        <span id="close">&times;</span>
+        <p>Delete Confirm</p>
+        <span class="close">&times;</span>
       </div>
 
       <div class="modal-body">
-     
+        <p> Are you sure to delete post?</p>
+         <table style="border: 0;"  class="modal-table">
+            <tr>
+              <td>ID</td>
+              <td><%= post.id %></td>
+            </tr>
+                  <tr>
+              <td>Title</td>
+              <td><%= post.title %></td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td><%= post.description %></td>
+            </tr>
+             <tr>
+              <td>Status</td>
+              <td><%= "active" if post.status %></td>
+            </tr>
+            
+          </table>
       </div>
 
       <div class="modal-footer">
-     
+          <div class="detail-close">
+                <button class="close clear-btn">Close </button>
+                <button type="submit" class="delete-modal-btn edit-btn">Delete </button>
+          </div>
       </div>
 
     </div>
   </div>
 </div><!-- END the modal -->
+
+ </form>
