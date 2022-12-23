@@ -1,5 +1,5 @@
 
-
+import '../stylesheets/style.css';
 window.onload = function () {
 
   const dropdown = document.querySelector("#dropdown-link")
@@ -15,7 +15,7 @@ window.onload = function () {
   deleteBtn.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       const href = e.target.getAttribute('href');
-      const detail_modal = document.querySelector(`#delete-modal_${href}`)
+      const delete_modal = document.querySelector(`#delete-modal_${href}`)
       e.preventDefault();
       delete_modal.style.display = "block";
 
@@ -35,6 +35,9 @@ window.onload = function () {
   closeModal.forEach(function (close) {
     close.addEventListener('click', function (e) {
       e.preventDefault();
+      const href = e.target.getAttribute('data-id');
+      const detail_modal = document.querySelector(`#detail-modal_${href}`)
+      const delete_modal = document.querySelector(`#delete-modal_${href}`)
       detail_modal.style.display = "none";
       delete_modal.style.display = "none";
     });
