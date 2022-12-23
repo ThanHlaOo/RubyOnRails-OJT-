@@ -22,6 +22,17 @@
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
+       <% if flash[:notice] %>
+    <%  flash[:notice].each do |message| %>
+      <p  class="success"> <%= message%></p>
+    <% end %>
+  <% end%>
+  <% if flash[:alert] %>
+    <%  flash[:alert].each do |message| %>
+      <p  class="success"> <%= message%></p>
+    <% end %>
+  <% end%>
+
 <div class="input-group clearfix">
   <div class="list-btn-group">
  
@@ -31,8 +42,8 @@
     <button type="submit" class="register-btn list-btn">Search</button>
   <% end %>
   <a href="/posts/new" class="list-btn register-btn">Create</a>
-  <a href="/upload" class="list-btn register-btn">Upload </a>
-  <a href="/download" class="list-btn register-btn">Download </a>
+  <a href="/import" class="list-btn register-btn">Upload </a>
+  <a href="/export" class="list-btn register-btn">Download </a>
   </div>
 </div>
 

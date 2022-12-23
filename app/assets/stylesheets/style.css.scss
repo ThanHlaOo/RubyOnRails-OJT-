@@ -582,3 +582,14 @@ input[type="checkbox"]{
   #dropdown-menu a {
     margin: 15px;
   }
+  .import-class {
+    border: 1px solid #dee1ec;
+    padding: 0;
+  }
+  .import-class::file-selector-button {
+    font-weight: bold;
+    color: #000;
+    border: 1px solid #fff;
+    padding: 10px;
+    border-radius: 3px;
+}

@@ -1,0 +1,31 @@
+<div class="login-header">
+  <h1> Upload CSV file </h1>
+</div>
+    <% if flash[:error] %>
+    <p  class="errors "> <%=flash[:error]%></p>
+  <% end%>
+<%= form_with(model: @post, url: "posts/import",  local: true, multipart: true, method: :Post, html: { class: 'create-form register-form' }) do |form| %>
+ <table class="">
+ <tr>
+  <td>
+      <%= form.label :file, "CSV file" %>
+  </td>
+  <td>
+    
+    <input type="file" class="import-class" name="post[file]" id="file">
+  </td>
+ </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+      <%= form.submit 'Upload', class: "register-btn edit-btn edit-confirm-btn" %>
+      <%= link_to 'Clear', root_path(@post), class: 'cancle-btn' %>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+  
+<% end %>
