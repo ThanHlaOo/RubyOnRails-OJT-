@@ -14,9 +14,9 @@ window.onload = function () {
   });
   deleteBtn.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
-      const href = e.target.getAttribute('href');
-      const delete_modal = document.querySelector(`#delete-modal_${href}`)
       e.preventDefault();
+      const href = e.target.getAttribute('href').split("/")[2];
+      const delete_modal = document.querySelector(`#delete-modal_${href}`)
       delete_modal.style.display = "block";
 
     });
@@ -24,9 +24,9 @@ window.onload = function () {
 
   btn.forEach(function (postTitle) {
     postTitle.addEventListener('click', function (e) {
+      e.preventDefault();
       const href = e.target.getAttribute('href');
       const detail_modal = document.querySelector(`#detail-modal_${href}`)
-      e.preventDefault();
       detail_modal.style.display = "block";
 
     });
@@ -35,9 +35,11 @@ window.onload = function () {
   closeModal.forEach(function (close) {
     close.addEventListener('click', function (e) {
       e.preventDefault();
-      const href = e.target.getAttribute('data-id');
+      const href = e.target.getAttribute('data_id');
       const detail_modal = document.querySelector(`#detail-modal_${href}`)
       const delete_modal = document.querySelector(`#delete-modal_${href}`)
+      console.log(detail_modal)
+      console.log(delete_modal)
       detail_modal.style.display = "none";
       delete_modal.style.display = "none";
     });
