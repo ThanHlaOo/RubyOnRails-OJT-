@@ -6,10 +6,29 @@ class UserController < ApplicationController
   end
   
   def create
-    @user = User.find_by(email:login_params[:email])
+
+    # if  login_params[:email].present?
+    #   flash[:login_errors] = ['']
+    #   redirect_to '/login'
+    # end
+    @user = User.find_by(email: login_params[:email])
+    # puts "hello login user"
+    # puts @user
+    # @user = User.create(name: "user1", email: "email1", password: "sample1")
+    # @user.va
+    
+    # if @user.valid? 
+
+    #   puts "this is valid"
+    # else
+      
+    #   puts @user.errors.full_messages
+    #   puts "this is not  valid"
+    # end
+    
     if @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
-      redirect_to '/posts'
+      render 'posts/index'
 
     elsif !@user 
       flash[:login_errors] = ['Email does not Exit!']

@@ -13,7 +13,7 @@
       
       <div class="modal-header">
         <p>Delete Confirm</p>
-        <span class="close">&times;</span>
+        <span class="close" data_id="<%= post.id %>">&times;</span>
       </div>
 
       <div class="modal-body">
@@ -41,7 +41,7 @@
 
       <div class="modal-footer">
           <div class="detail-close">
-                <button class="close clear-btn">Close </button>
+                <button class="close clear-btn" data_id="<%= post.id %>">Close </button>
                 <button type="submit" class="delete-modal-btn edit-btn">Delete </button>
           </div>
       </div>

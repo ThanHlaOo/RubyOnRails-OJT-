@@ -15,6 +15,9 @@ Rails.application.routes.draw do
   get "/posts-edit-confirm", to: "posts#editConfirm"
   patch '/posts/:id', to: 'posts#update'
   get "search", to: "posts#search"
+  get "import", to: "posts#import"
+  post "posts/import", to: "posts#upload"
+  get "/export", to: "posts#export"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
