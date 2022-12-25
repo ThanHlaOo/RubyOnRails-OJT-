@@ -47,7 +47,7 @@ class PostsController < ApplicationController
   end
   def editConfirm
     # @post = Post.new(params[:post][:id])
-    @post =  Post.new(edit_post_params)
+   
     # puts @post
     # puts "this is comfirm status #{@post.status}"
     # if @post.valid?
@@ -61,6 +61,23 @@ class PostsController < ApplicationController
     #   render edit_post_path(@post)
     #   return
     # end
+    @post =  Post.new(edit_post_params)
+    if edit_post_params[:title].blank?
+      flash[:title_errors] = ['Title is required']
+      redirect_to edit_post_path(@post)
+      return
+    end 
+    if edit_post_params[:description].blank?
+      flash[:description_errors] = ['Description is required']
+      redirect_to edit_post_path(@post)
+      return
+    end 
+    if edit_post_params[:description].length > 255
+      flash[:description_errors] = ['Description is maximum 255']
+      redirect_to edit_post_path(@post)
+      return
+    end 
+   
   end
   def update
     @post = Post.find(params[:id])

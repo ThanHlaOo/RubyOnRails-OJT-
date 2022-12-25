@@ -15,28 +15,22 @@
   <div class="input-group">
       <label for="email">Email Address:</label>
       <input type="email"  name="login[email]" id="email" >
-      <div class="error">
-               <% if @user.errors[:email].any? %>
-          <%= @user.errors[:email].to_sentence %>
-        <% end%>
-
-      </div>
-    
+         
+              <% if flash[:login_email_errors] %>
+    <%  flash[:login_email_errors].each do |error| %>
+      <p  class="validation-error"> <%= error%></p>
+    <% end %>
+  <% end%>
+        
   </div>
   <div class="input-group">
       <label for="password" class="password-label">Password:</label>
       <input type="password" name="login[password]">
-      <div class="error">
-        <% if flash[:error] %>
-  <div class="alert alert-error">
-    <%= flash[:error].join(', ') %>
-  </div>
-<% end %>
-      </div>
-  </div>
-
-  <div class="input-group clearfix">
-  
+        <% if flash[:login_password_errors] %>
+    <%  flash[:login_password_errors].each do |error| %>
+      <p  class="validation-error"> <%= error%></p>
+    <% end %>
+  <% end%>
   </div>
   
   <div class="input-group btn-group">
@@ -44,6 +38,7 @@
     <a href="/forget" class="forget-password">forgotten password?</a>
   <button type="submit" class="login-btn">Login</button>
     <a href="/register">Create account?</a>
-    <i class="fa-solid fa-user-plus"></i>
+    <i class="fa fa-user-plus fa-2x" aria-hidden="true"></i>
+
   </div>
 </form>

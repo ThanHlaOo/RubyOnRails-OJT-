@@ -6,29 +6,27 @@ class UserController < ApplicationController
   end
   
   def create
-
-    # if  login_params[:email].present?
-    #   flash[:login_errors] = ['']
-    #   redirect_to '/login'
-    # end
+    if login_params[:email].blank?
+      flash[:login_email_errors] = ['Email is required']
+      puts flash[:login_email_errors]
+      redirect_to '/login'
+      return
+    end
+    
+    if login_params[:password].blank?
+      flash[:login_password_errors] = ['Password is required']
+      redirect_to '/login'
+      return
+    end 
+    if login_params[:password].length < 6
+      flash[:login_password_errors] = ['Password length is minimun 6']
+      redirect_to '/login' 
+      return
+    end
     @user = User.find_by(email: login_params[:email])
-    # puts "hello login user"
-    # puts @user
-    # @user = User.create(name: "user1", email: "email1", password: "sample1")
-    # @user.va
-    
-    # if @user.valid? 
-
-    #   puts "this is valid"
-    # else
-      
-    #   puts @user.errors.full_messages
-    #   puts "this is not  valid"
-    # end
-    
     if @user && @user.authenticate(login_params[:password])
       session[:user_id] = @user.id
-      render 'posts/index'
+      redirect_to '/posts'
 
     elsif !@user 
       flash[:login_errors] = ['Email does not Exit!']
