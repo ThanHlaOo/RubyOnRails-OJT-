@@ -1,5 +1,5 @@
 
-
+import '../stylesheets/style.css';
 window.onload = function () {
 
   const dropdown = document.querySelector("#dropdown-link")
