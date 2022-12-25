@@ -22,11 +22,11 @@
   </td>
   <td>
     <input type="text"  name="post[title]" value="<%= @post.title%>" >
-    <div class="validation-error">
-      <% @post.errors.full_messages_for(:title).each do |message| %>
-        <%= message %>
-      <% end %>
-    </div>
+    <% if flash[:title_errors] %>
+    <%  flash[:title_errors].each do |error| %>
+      <p  class="validation-error"> <%= error%></p>
+    <% end %>
+  <% end%>
   </td>
  </tr>
   <tr>
@@ -35,11 +35,11 @@
   </td>
   <td>
      <textarea name="post[description]" rows="10" cols="50"><%= @post.description%></textarea>
-      <div class="validation-error">
-        <% @post.errors.full_messages_for(:description).each do |message| %>
-          <%= message %>
-        <% end %>
-    </div>
+           <% if flash[:description_errors] %>
+    <%  flash[:description_errors].each do |error| %>
+      <p  class="validation-error"> <%= error%></p>
+    <% end %>
+  <% end%>
   </td>
  </tr>
   <tr>
