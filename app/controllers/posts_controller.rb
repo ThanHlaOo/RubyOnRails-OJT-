@@ -19,6 +19,28 @@ class PostsController < ApplicationController
   end
   def confirm
     @post = Post.new(post_params)
+    if post_params[:title].blank?
+      flash[:post_title_errors] = ["Title can't be blank."]
+      if post_params[:description].blank?
+        flash[:post_description_errors] = ["Description can't be blank."]
+      end
+      if post_params[:description].length > 256
+        flash[:post_description_errors] = ["255 characters is the maximum allowed."]
+      end
+      redirect_to '/posts/new'
+      return
+    end 
+    if post_params[:description].blank?
+      flash[:post_description_errors] = ["Description can't be blank."]
+      redirect_to '/posts/new'
+      return
+    end
+    if post_params[:description].length > 256
+      flash[:post_description_errors] = ["255 characters is the maximum allowed."]
+      redirect_to '/posts/new'
+      return
+    end
+   
     # render :new unless @post.valid?
   end
   def create
@@ -30,12 +52,9 @@ class PostsController < ApplicationController
       flash[:post_created] = ['Post Successfully Created.']
       redirect_to "/posts"
     else
-    #   #flash.now[:error] = @confirm_post.errors.full_messages
-    #   #flash[:error] = @confirm_post.errors.full_messages.join(", ")
       @confirm_post =  @confirm_post.errors
-      # render :new
       render '/posts/new'
-    #   # puts @confirm_post.errors.full_messages
+
     end
 
   end 
@@ -46,37 +65,28 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
   def editConfirm
-    # @post = Post.new(params[:post][:id])
-   
-    # puts @post
-    # puts "this is comfirm status #{@post.status}"
-    # if @post.valid?
-    #   # The post is valid, so you can save it to the database
-    #   puts "this is update method going"
-    #   render "editConfirm"
-    #   return
-    # else
-    #   # The post is invalid, so you can display an error message to the user
-    #   puts "this is edit method going"
-    #   render edit_post_path(@post)
-    #   return
-    # end
     @post =  Post.new(edit_post_params)
     if edit_post_params[:title].blank?
-      flash[:title_errors] = ['Title is required']
+      flash[:post_title_errors] = ["Title can't be blank."]
+      if edit_post_params[:description].blank?
+        flash[:post_description_errors] = ["Description can't be blank."]
+      end
+      if edit_post_params[:description].length > 256
+        flash[:post_description_errors] = ["255 characters is the maximum allowed."]
+      end
       redirect_to edit_post_path(@post)
       return
     end 
     if edit_post_params[:description].blank?
-      flash[:description_errors] = ['Description is required']
+      flash[:post_description_errors] = ["Description can't be blank."]
       redirect_to edit_post_path(@post)
       return
-    end 
-    if edit_post_params[:description].length > 255
-      flash[:description_errors] = ['Description is maximum 255']
+    end
+    if edit_post_params[:description].length > 256
+      flash[:post_description_errors] = ["255 characters is the maximum allowed."]
       redirect_to edit_post_path(@post)
       return
-    end 
+    end
    
   end
   def update

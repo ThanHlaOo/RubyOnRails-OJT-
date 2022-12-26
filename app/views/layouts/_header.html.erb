@@ -1,12 +1,12 @@
 <nav>
   <ul class="left-nav">
     <li><a href="">Bulletin_Board</a></li>
-    <li><a href="">Users</a></li>
+    <li><a href="/users">Users</a></li>
     <li><a href="/posts">Posts</a></li>
   </ul>
   <ul class="right-nav">
-    <li><a href="">Create User</a></li>
-    <li id="dropdown-link"><a href="">Zaw Zaw</a> <%= fa_icon 'caret-down', class: 'fa-solid' %><%= fa_icon 'user-gear', class: 'fa-solid' %></li>
+    <li><a href="/users/new">Create User</a></li>
+    <li id="dropdown-link"><a href=""><%= User.find(session[:user_id]).name.titleize %></a><i class="fa fa-user setting-icon" aria-hidden="true"></i><%= fa_icon 'caret-down', class: 'fa-solid' %></li>
     <div id="dropdown-menu">
       <a href="#" class="dropdown-item">Profile</a>
       <a href="/logout" class="dropdown-item">Logout</a>

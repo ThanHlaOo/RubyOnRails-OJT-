@@ -1,6 +1,7 @@
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
+<%= render partial: "layouts/header" %>
 <div class="login-header">
-  <h1> Sign Up </h1>
+  <h1> Register </h1>
 </div>
 
 <div>
@@ -10,15 +11,17 @@
     <% end %>
   <% end%>
 </div>
-<form action = "/register" method = "POST" enctype="multipart/form-data" class="register-form"> 
- <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
- <table class="">
+<%= form_with(model: @user, url: "/register", method: :post, html: { class: 'register-form user-register' }) do |form| %>
+<table class="">
  <tr>
   <td>
     <label> Name </label>
   </td>
   <td>
-    <input type="text"  name="user[name]">
+      <%= form.text_field :name %>
+       <% @user.errors.full_messages_for(:name).each do |message| %>
+      <div class="validation-error"><%= message %></div>
+      <% end %>
   </td>
  </tr>
   <tr>
@@ -26,7 +29,13 @@
     <label> E-Mail Address </label>
   </td>
   <td>
-    <input type="email"  name="user[email]">
+    <input type="text"  name="user[email]">
+
+      <% if @user.errors.any? %>
+  <% if error = @user.errors.full_messages_for(:email).first %>
+    <div class="validation-error"><%= error %></div>
+  <% end %>
+<% end %>
   </td>
  </tr>
   <tr>
@@ -36,14 +45,72 @@
   </td>
   <td>
     <input type="password"  name="user[password]">
+         <% if @user.errors.any? %>
+  <% if error = @user.errors.full_messages_for(:password).first %>
+    <div class="validation-error"><%= error %></div>
+  <% end %>
+<% end %>
   </td>
  </tr>
   <tr>
   <td>
-    <label> Password_Confirmation </label>
+    <label> Password confirmation </label>
   </td>
   <td>
-    <input type="password"  name="user[confirm_password]">
+    <%= form.password_field :password_confirmation %>
+       <% if @user.errors.any? %>
+  <% if error = @user.errors.full_messages_for(:password_confirmation).second %>
+    <div class="validation-error"><%= error %></div>
+  <% end %>
+<% end %>
+
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label for="type"> Type </label>
+  </td>
+  <td>
+  <select name="user[role]" id="type">
+    <option value="1">Admin</option>
+    <option value="0">User</option>
+  </select>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Phone </label>
+  </td>
+  <td>
+    <input type="text"  name="user[phone]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Date of birth </label>
+  </td>
+  <td>
+    <input type="date"  name="user[dob]">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label>Address </label>
+  </td>
+  <td>
+  <textarea name="user[address]" id="" cols="48" rows="5"></textarea>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Profile </label>
+  </td>
+  <td>
+    <input type="file"  name="user[profile]" class="user-profile">
+     <% @user.errors.full_messages_for(:profile).each do |message| %>
+      <div class="validation-error"><%= message %></div>
+      <% end %>
+   
   </td>
  </tr>
   <tr>
@@ -51,13 +118,11 @@
   </td>
   <td>
   <div class="input-group register-btn-group">
-   <button type="submit" class="register-btn">Create</button>
-    <button type="reset" class="clear-btn">Clear</button>
-    <a href="/login" class="login-link">sign in</a>
+   <button type="submit" class="register-btn">Register</button>
+    <button type="reset" class="clear-btn user-clear-btn">Clear</button>
  </div>
   </td>
   </tr>
  </table>
- 
-  
-</form>
+<%end%>
+   <%= render partial: "layouts/footer" %>

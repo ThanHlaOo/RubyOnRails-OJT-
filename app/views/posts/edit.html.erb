@@ -22,8 +22,8 @@
   </td>
   <td>
     <input type="text"  name="post[title]" value="<%= @post.title%>" >
-    <% if flash[:title_errors] %>
-    <%  flash[:title_errors].each do |error| %>
+    <% if flash[:post_title_errors] %>
+    <%  flash[:post_title_errors].each do |error| %>
       <p  class="validation-error"> <%= error%></p>
     <% end %>
   <% end%>
@@ -35,8 +35,8 @@
   </td>
   <td>
      <textarea name="post[description]" rows="10" cols="50"><%= @post.description%></textarea>
-           <% if flash[:description_errors] %>
-    <%  flash[:description_errors].each do |error| %>
+           <% if flash[:post_description_errors] %>
+    <%  flash[:post_description_errors].each do |error| %>
       <p  class="validation-error"> <%= error%></p>
     <% end %>
   <% end%>

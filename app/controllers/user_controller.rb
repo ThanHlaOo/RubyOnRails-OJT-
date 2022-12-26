@@ -1,5 +1,6 @@
 class UserController < ApplicationController
   def index
+    @users = User.all
   end
   def login
     @user = User.new
@@ -7,20 +8,19 @@ class UserController < ApplicationController
   
   def create
     if login_params[:email].blank?
-      flash[:login_email_errors] = ['Email is required']
-      puts flash[:login_email_errors]
+      flash[:login_email_errors] = ["Email can't be blank."]
+      if login_params[:password].blank?
+        flash[:login_password_errors] = ["Password can't be blank."]
+      end
       redirect_to '/login'
       return
     end
-    
-    if login_params[:password].blank?
-      flash[:login_password_errors] = ['Password is required']
+    if !login_params[:email].match(/\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i) && !login_params[:email].blank?
+      flash[:login_email_errors] = ["Email Format is invalid"]
+      if login_params[:password].blank?
+        flash[:login_password_errors] = ["Password can't be blank."]
+      end
       redirect_to '/login'
-      return
-    end 
-    if login_params[:password].length < 6
-      flash[:login_password_errors] = ['Password length is minimun 6']
-      redirect_to '/login' 
       return
     end
     @user = User.find_by(email: login_params[:email])
@@ -37,18 +37,20 @@ class UserController < ApplicationController
     end 
   end
   def register
-
+    @user = User.new
   end
 
   def saveRegister
     @user = User.new(register_params)
-  
+    @user.create_user_id = session[:user_id]
+    @user.updated_user_id = session[:user_id]
     if @user.save
-       session[:user_id] = @user.id
-       redirect_to '/'
+       flash[:user_created] = ["User Created Successfully."]
+       redirect_to '/users'
     else
-      flash[:register_errors] = @user.errors.full_messages
-      redirect_to '/register'
+      # flash[:register_errors] = @user.errors.full_messages
+      # redirect_to '/register'
+      render :register
     end
   end
   def logout 
@@ -57,7 +59,7 @@ class UserController < ApplicationController
   end
   private
   def register_params
-    params.require(:user).permit(:name, :email, :password)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :phone, :dob, :address, :profile)
   end
   private
   def login_params

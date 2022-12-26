@@ -548,7 +548,13 @@ input[type="checkbox"]{
   
   }
   nav .right-nav {
-
+    padding-right: 17px;
+  }
+  nav .right-nav .setting-icon {
+    padding-right: 13px;
+    font-size: 23px;
+    padding-left: 4px;
+    color: #00693e;
   }
   nav form {
     display: flex;
@@ -606,4 +612,61 @@ input[type="checkbox"]{
     border: 1px solid #fff;
     padding: 10px;
     border-radius: 3px;
+}
+// User
+.user-input {
+  width: 200px !important;
+  margin-right: 7px;
+}
+.user-list {
+  padding: 20px 30px 28px;
+}
+.user-btn-group {
+  margin-top: 26px;
+}
+.user-search-btn {
+  padding: 11px 35px !important;
+}
+.user-profile::file-selector-button {
+  font-weight: bold;
+  color: #000;
+  border: 1px solid #fff;
+  padding: 10px;
+  border-radius: 3px;
+}
+.user-profile {
+  border: 1px solid #dee1ec;
+  padding: 0;
+  width: 371px;
+}
+.user-register input {
+  margin: 6px 0;
+}
+.user-clear-btn {
+  padding: 8px 32px !important;
+}
+#type {
+  padding: 10px 6px 10px;
+  width: 69%;
+}
+//  Footer
+footer {
+  position: relative;
+}
+.footer-container {
+  display: flex;
+  position: absolute;
+  top: 207px;
+  justify-content: space-between; 
+  width: 98%;
+  padding: 20px 10px;
+  background-color: #D3D3D330;
+}
+.footer-container a , .footer-container p {
+  display: inline-block;
+  margin: 0;
+  text-decoration: none;
+  font-size: 20px;
+  color: #00693e;
+  font-weight: 700;
 }
