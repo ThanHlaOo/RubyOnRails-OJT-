@@ -86,8 +86,8 @@ GEM
       xpath (~> 3.2)
     concurrent-ruby (1.1.10)
     crass (1.0.6)
-    date (3.3.3)
-    debug (1.7.1)
+    date (3.3.1)
+    debug (1.7.0)
       irb (>= 1.5.0)
       reline (>= 0.3.1)
     devise (4.8.1)
@@ -107,8 +107,8 @@ GEM
     importmap-rails (1.1.5)
       actionpack (>= 6.0.0)
       railties (>= 6.0.0)
-    io-console (0.6.0)
-    irb (1.6.2)
+    io-console (0.5.11)
+    irb (1.6.1)
       reline (>= 0.3.0)
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
@@ -128,7 +128,7 @@ GEM
     minitest (5.16.3)
     msgpack (1.6.0)
     mysql2 (0.5.4)
-    net-imap (0.3.4)
+    net-imap (0.3.2)
       date
       net-protocol
     net-pop (0.1.2)
@@ -198,9 +198,9 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    sprockets (4.2.0)
+    sprockets (4.1.1)
       concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
+      rack (> 1, < 3)
     sprockets-rails (3.4.2)
       actionpack (>= 5.2)
       activesupport (>= 5.2)
@@ -267,7 +267,7 @@ DEPENDENCIES
   tzinfo-data
   web-console
   webdrivers
-  webpacker (~> 5.0)
+  webpacker
   will_paginate (~> 3.3)
 
 RUBY VERSION
