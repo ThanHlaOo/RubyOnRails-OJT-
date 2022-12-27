@@ -15,6 +15,8 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+// import * as ActiveStorage from "@rails/activestorage"
+// ActiveStorage.start()
 
 import '../stylesheets/style.css';
 window.onload = function () {
@@ -24,7 +26,14 @@ window.onload = function () {
   const btn = document.querySelectorAll(".post-title");
   const deleteBtn = document.querySelectorAll(".delete-btn");
   const closeModal = document.querySelectorAll(".close");
-
+  const resetBtn = document.querySelector('button[type="reset"]');
+  if(resetBtn != null ){
+    resetBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      document.querySelector('input[type="text"]').value = ""
+      document.querySelector('textarea').value = ""
+    });
+  }
   dropdown.addEventListener('click', function (e) {
     e.preventDefault();
     dropdown_menu.classList.toggle('show-menu');
@@ -55,8 +64,6 @@ window.onload = function () {
       const href = e.target.getAttribute('data_id');
       const detail_modal = document.querySelector(`#detail-modal_${href}`)
       const delete_modal = document.querySelector(`#delete-modal_${href}`)
-      console.log(detail_modal)
-      console.log(delete_modal)
       detail_modal.style.display = "none";
       delete_modal.style.display = "none";
     });
@@ -65,11 +72,10 @@ window.onload = function () {
 
 };
 
-
-window.onclick = function (event) {
+window.addEventListener('click', function(event) {
   const modal = document.querySelectorAll(".myModal");
   if (event.target == modal) {
     modal.style.display = "none";
   }
-};
+});
 

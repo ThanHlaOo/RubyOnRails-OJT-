@@ -1,12 +1,13 @@
 class User < ApplicationRecord
     has_secure_password
-
+    has_one_attached :profile
     validates :name, presence: true
     validates :email, presence: true
-    validates :profile, presence: true
+    # validates :profile, 
     validates :password, presence: true, length: { minimum: 6 }
     validates :password_confirmation, presence: true
     has_many :posts
+   
    validates_confirmation_of :password
    VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
 #    validates_format_of :email, with: VALID_EMAIL_REGEX

@@ -1,0 +1,60 @@
+
+
+<%= form_with(model: user, url: delete_user_path(user), method: :delete, html: { class: 'modal-form' }) do |form| %>
+ <!-- The Modal -->
+ <div id="delete-modal_<%= user.id %>" class="myModal user-delete-modal"> 
+  <!-- Modal content -->
+  <div class="modal-content">
+     
+    <div class="modal-content-right">
+      
+      <div class="modal-header">
+        <p>Delete Confirm</p>
+        <span class="close" data_id="<%= user.id %>">&times;</span>
+      </div>
+
+      <div class="modal-body">
+        <p class="delete-txt"> Are you sure to delete user?</p>
+         <table style="border: 0;"  class="modal-table user-modal-table">
+            <tr>
+              <td>ID</td>
+              <td><%= user.id %></td>
+            </tr>
+                  <tr>
+              <td>Name</td>
+              <td><%= user.name %></td>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td><%= user.role %></td>
+            </tr>
+             <tr>
+              <td>Email</td>
+              <td><%= user.email %></td>
+            </tr>
+             <tr>
+              <td>Phone</td>
+              <td><%= user.phone %></td>
+            </tr> 
+            <tr>
+              <td>Date of Birth</td>
+              <td><%=  user.dob ? user.dob.strftime("%Y/%m/%d") : "-" %></td>
+            </tr>
+            <tr>
+              <td>Address</td>
+              <td><%=  user.address %></td>
+            </tr>
+          </table>
+      </div>
+
+      <div class="modal-footer">
+          <div class="detail-close">
+                <button class="close clear-btn" data_id="<%= user.id %>">Close </button>
+                <button type="submit" class="delete-modal-btn edit-btn">Delete </button>
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div><!-- END the modal -->
+<%end%>

@@ -9,23 +9,8 @@
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
-  <% if flash[:post_updated] %>
-    <%  flash[:post_updated].each do |message| %>
-      <p  class="success"> <%= message%></p>
-    <% end %>
-  <% end%>
-    <% if flash[:post_deleted] %>
-    <%  flash[:post_deleted].each do |message| %>
-      <p  class="success"> <%= message%></p>
-    <% end %>
-  <% end%>
-       <% if flash[:notice] %>
-    <%  flash[:notice].each do |message| %>
-      <p  class="success"> <%= message%></p>
-    <% end %>
-  <% end%>
-  <% if flash[:alert] %>
-    <%  flash[:alert].each do |message| %>
+    <% if flash[:user_deleted] %>
+    <%  flash[:user_deleted].each do |message| %>
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
@@ -94,10 +79,13 @@
     <% @users.each do |user| %>
     <tr>       
       <td>
-          <a href="<%= user.id%>" class="post-title" > <%= user.id %></a>
+          <%= user.id %>
         </td>
         <td>
-          <%=  user.name%>
+          <a href="<%= user.id%>" class="post-title" > <%= user.name %></a>
+          <%= render "user_detail_modal", user: user %>
+
+      
         </td>
 				<td>
           <%=  user.email%>
@@ -125,8 +113,9 @@
         </td>
         <td>
             <div class="table-btn-group user-btn-group">
-              <%= link_to "Delete", link_to("/users"), method: :delete, class: "delete-btn"  %>
-              
+              <%= link_to "Delete", delete_user_path(user), method: :delete, class: "delete-btn"  %>
+        
+              <%= render partial: "user_delete_modal", locals: {user: user} %>
             </div>
         </td>
     </tr>

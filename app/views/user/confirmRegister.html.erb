@@ -1,7 +1,7 @@
 <%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
 <%= render partial: "layouts/header" %>
 <div class="login-header">
-  <h1> Register </h1>
+  <h1> Register Confirm </h1>
 </div>
 
 <div>
@@ -11,14 +11,14 @@
     <% end %>
   <% end%>
 </div>
-<%= form_with(model: @user, url: "/user/registerConfirm", method: :post, html: { class: 'register-form user-register' , multipart: true}) do |form| %>
+<%= form_with(model: @user, url: "/user/register", method: :post, html: { class: 'register-form user-register', multipart: true }) do |form| %>
 <table class="">
  <tr>
   <td>
     <label> Name </label>
   </td>
   <td>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, value: @user.name, readonly: true%>
        <% @user.errors.full_messages_for(:name).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>
@@ -29,7 +29,7 @@
     <label> E-Mail Address </label>
   </td>
   <td>
-    <input type="text"  name="user[email]">
+    <input type="text"  name="user[email]" value="<%= @user.email%>" readonly>
 
       <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:email).first %>
@@ -44,7 +44,7 @@
     <label> Password </label>
   </td>
   <td>
-    <input type="password"  name="user[password]">
+    <input type="password"  name="user[password]" value="<%= @user.password %>" readonly>
          <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:password).first %>
     <div class="validation-error"><%= error %></div>
@@ -57,7 +57,7 @@
     <label> Password confirmation </label>
   </td>
   <td>
-    <%= form.password_field :password_confirmation %>
+    <%= form.password_field :password_confirmation, value: @user.password_confirmation, readonly: true %>
        <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:password_confirmation).second %>
     <div class="validation-error"><%= error %></div>
@@ -71,10 +71,7 @@
     <label for="type"> Type </label>
   </td>
   <td>
-  <select name="user[role]" id="type">
-    <option value="1">Admin</option>
-    <option value="0">User</option>
-  </select>
+    <input type="text" value="<%= @user.role %>" readonly>
   </td>
  </tr>
   <tr>
@@ -82,7 +79,7 @@
     <label> Phone </label>
   </td>
   <td>
-    <input type="text"  name="user[phone]">
+    <input type="text"  name="user[phone]" value="<%= @user.phone%>" readonly>
   </td>
  </tr>
   <tr>
@@ -90,7 +87,7 @@
     <label> Date of birth </label>
   </td>
   <td>
-    <input type="date"  name="user[dob]">
+    <input type="type"  name="user[dob]" value="<%= @user.dob%>" readonly>
   </td>
  </tr>
   <tr>
@@ -98,7 +95,7 @@
     <label>Address </label>
   </td>
   <td>
-  <textarea name="user[address]" id="" cols="48" rows="5"></textarea>
+  <textarea name="user[address]" id="" cols="48" rows="5" readonly><%= @user.address%></textarea>
   </td>
  </tr>
   <tr>
@@ -106,7 +103,8 @@
     <label> Profile </label>
   </td>
   <td>
-    <%= form.file_field :profile, class: "user-profile" %>
+    
+    <input type="file"  name="user[profile]" class="user-profile" value="<%= @user.profile%>" readonly>
      <% @user.errors.full_messages_for(:profile).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>
@@ -118,8 +116,8 @@
   </td>
   <td>
   <div class="input-group register-btn-group">
-   <button type="submit" class="register-btn">Register</button>
-    <button type="reset" class="clear-btn user-clear-btn">Clear</button>
+   <button type="submit" class="register-btn">Confirm</button>
+   <a href="users/new" class="clear-btn user-clear-btn">Cancel</a>
  </div>
   </td>
   </tr>

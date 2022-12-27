@@ -468,6 +468,12 @@ input[type="checkbox"]{
   .modal-table tr td:last-child {
     color: #d9534f;
   }
+  .user-modal-table tr td:last-child {
+    color: #232323;
+  }
+  .delete-txt {
+    color: #d9534f;
+  }
   .detail-close {
     float: right;
   }
@@ -622,7 +628,7 @@ input[type="checkbox"]{
   padding: 20px 30px 28px;
 }
 .user-btn-group {
-  margin-top: 26px;
+  padding-top: 29px;
 }
 .user-search-btn {
   padding: 11px 35px !important;
@@ -648,6 +654,15 @@ input[type="checkbox"]{
 #type {
   padding: 10px 6px 10px;
   width: 69%;
+}
+.user-modal {
+  padding-top: 35px !important;
+}
+.user-modal-content {
+  max-height: 36rem !important;
+}
+.user-delete-modal {
+  padding-top: 48px;
 }
 //  Footer
 footer {

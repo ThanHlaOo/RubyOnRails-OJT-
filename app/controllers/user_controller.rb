@@ -1,4 +1,5 @@
 class UserController < ApplicationController
+  before_action :check_permissions, only: [:index, :register, :confirmRegister, :saveRegister]
   def index
     @users = User.all
   end
@@ -40,6 +41,19 @@ class UserController < ApplicationController
     @user = User.new
   end
 
+  def confirmRegister
+    @user = User.new(register_params)
+    # @user = User.create!(register_params)
+    @user.create_user_id = session[:user_id]
+    @user.updated_user_id = session[:user_id]
+    @user.profile.attach(register_params[:profile])
+    if @user.valid?
+      render :confirmRegister
+    else 
+      render :register
+    end
+   
+  end
   def saveRegister
     @user = User.new(register_params)
     @user.create_user_id = session[:user_id]
@@ -53,6 +67,14 @@ class UserController < ApplicationController
       render :register
     end
   end
+  def destroy
+    puts "delete method"
+    @user = User.find(params[:id])
+    @user.destroy
+    flash[:user_deleted] = ['User Successfully Deleted.']
+    redirect_to "/users"
+    # redirect_to posts_path, notice: "Post was successfully deleted."
+  end
   def logout 
     session[:user_id] = nil
     redirect_to '/login'
@@ -64,5 +86,11 @@ class UserController < ApplicationController
   private
   def login_params
     params.require(:login).permit(:email, :password)
+  end
+  private
+  def check_permissions
+    unless session[:user_id]
+      redirect_to "/login"
+    end
   end
 end
