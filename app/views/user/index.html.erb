@@ -14,20 +14,25 @@
       <p  class="success"> <%= message%></p>
     <% end %>
   <% end%>
+      <% if flash[:user_updated] %>
+    <%  flash[:user_updated].each do |message| %>
+      <p  class="success"> <%= message%></p>
+    <% end %>
+  <% end%>
 
 <div class="input-group clearfix">
   <div class="user-list">
  
 
-  <%= form_with(url: '/search', method: :get, html: { class: 'list-form' }) do |form| %>
+  <%= form_with(url: '/users/search', method: :get, html: { class: 'list-form' }) do |form| %>
 		<label for="name">Name:</label>
-		<input type="text" name="user[name]" class="user-input" id="name">
+		<input type="text" name="search[name]" class="user-input" id="name">
 		<label for="email">Email:</label>
-		<input type="text" name="user[email]" class="user-input" id="email">
+		<input type="text" name="search[email]" class="user-input" id="email">
 		<label for="from">From:</label>
-		<input type="date" name="user[from_date]" class="user-input" id="from">
+		<input type="date" name="search[from_date]" class="user-input" id="from">
 		<label for="to">To:</label>
-		<input type="date" name="user[to_date]" class="user-input" id="to">
+		<input type="date" name="search[to_date]" class="user-input" id="to">
     <button type="submit" class="register-btn list-btn user-search-btn">Search</button>
   <% end %>
   </div>
@@ -84,7 +89,7 @@
         <td>
           <a href="<%= user.id%>" class="post-title" > <%= user.name %></a>
           <%= render "user_detail_modal", user: user %>
-
+      
       
         </td>
 				<td>

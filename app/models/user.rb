@@ -4,8 +4,8 @@ class User < ApplicationRecord
     validates :name, presence: true
     validates :email, presence: true
     # validates :profile, 
-    validates :password, presence: true, length: { minimum: 6 }
-    validates :password_confirmation, presence: true
+    validates :password, presence: true, length: { minimum: 6 }, on: :create
+    validates :password_confirmation, presence: true, on: :create
     has_many :posts
    
    validates_confirmation_of :password

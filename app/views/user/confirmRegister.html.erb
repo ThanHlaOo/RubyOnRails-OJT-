@@ -103,8 +103,8 @@
     <label> Profile </label>
   </td>
   <td>
-    
-    <input type="file"  name="user[profile]" class="user-profile" value="<%= @user.profile%>" readonly>
+ 
+    <%= image_tag ("/assets/#{@file_path}"), class: "img-responsive"%>
      <% @user.errors.full_messages_for(:profile).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>
@@ -117,7 +117,12 @@
   <td>
   <div class="input-group register-btn-group">
    <button type="submit" class="register-btn">Confirm</button>
-   <a href="users/new" class="clear-btn user-clear-btn">Cancel</a>
+   <form action="user/cancle" method="get">
+      <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
+      <input type="hidden" name="user[path]" value="<%=@file_path%>" class="clear-btn user-clear-btn">
+      <button type="submit" class="clear-btn user-clear-btn">Cancel</button>
+    </form>
+  
  </div>
   </td>
   </tr>

@@ -465,10 +465,41 @@ input[type="checkbox"]{
     font-weight: 700;
     padding: 10px;
   }
+  .profile-image-container {
+    padding-top: 23px;
+  }
+  .profile-table {
+    padding: 10px;
+    width: 350px;
+  }
+  .profile-edit-btn {
+    width: 75px;
+    margin-left: 16px;
+    background-color: #3B71CA;
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 24px;
+    border: 1px solid transparent;
+  }
+  .profile-edit-btn:hover {
+    color: #3B71CA;
+    background-color: #fff;
+    border: 1px solid #3B71CA;
+  }
+  .profile-table tr td:first-child {
+    text-align: left;
+    font-weight: 700;
+  }
+  .change-password-link {
+    display: inline-block;
+  }
   .modal-table tr td:last-child {
     color: #d9534f;
   }
   .user-modal-table tr td:last-child {
+    color: #232323;
+  }
+  .profile-table tr td:last-child {
     color: #232323;
   }
   .delete-txt {
@@ -663,6 +694,21 @@ input[type="checkbox"]{
 }
 .user-delete-modal {
   padding-top: 48px;
+}
+.img-responsive {
+  width: 150px ;
+  height: 150px;
+}
+.profile-container {
+  display: flex;
+  justify-content: center;
+}
+.profile-role {
+  width: 374px;
+  padding: 10px;
+}
+.profile-clear-btn {
+  padding: 8px 22px !important;
 }
 //  Footer
 footer {

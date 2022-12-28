@@ -1,0 +1,50 @@
+
+<%= render partial: "layouts/header" %>
+<div class="login-header">
+  <h1> Profile </h1>
+</div>
+
+<div class="profile-container">
+
+        <div class="profile-image-container">
+          <% if @user.profile.attached? %>
+            <%= image_tag rails_blob_path(@user.profile), class: "img-responsive" %>
+          <% end %>
+         
+        </div>
+        <div class="profile-content-container">
+          <table style="border: 0;"  class="modal-table profile-table">
+            <tr>
+              <td>Name</td>
+              <td><%= @user.name %></td>
+            </tr>
+                  <tr>
+              <td>Type</td>
+              <td><%= @user.role == "0" ? "User": "Admin" %></td>
+            </tr>
+             <tr>
+              <td>Email</td>
+              <td><%=  @user.email %></td>
+            </tr>
+               <tr>
+              <td>Phone</td>
+              <td><%=  @user.phone %></td>
+            </tr>
+               <tr>
+              <td>Date of Birth</td>
+              <td><%= @user.dob ? @user.dob.strftime("%Y/%m/%d") : "-"%></td>
+            </tr>
+               <tr>
+              <td>Address</td>
+              <td><%= @user.address %></td>
+            </tr>
+          </table>
+               <div class="input-group">
+              
+                <%= link_to "Edit Profile", edit_profile_path(@user), class: "profile-edit-btn" %>
+            </div>
+      </div>
+
+    </div>
+   <%= render partial: "layouts/footer" %>
+

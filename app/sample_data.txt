@@ -1,0 +1,19 @@
+  <select name="user[role]" id="type">
+    <option value="1">Admin</option>
+    <option value="0">User</option>
+  </select>
+ <input type="date" name="user[dob]" value="<%= @user.dob %>">
+ <%= content_tag :dob, @user.dob.strftime("%Y-%m-%dT%H:%M:%S") %>
+
+    <input type="hidden"  name="user[password]" value="<%= @user.password %>">
+      <%= form.password_field :password_confirmation %>
+
+    <%= form.hidden_field :password, value: @user.password %>
+  <%= form.hidden_field :password_confirmation, value: @user.password_confirmation %>
+
+ <%= image_tag url_for(@user.profile)%>
+<input type="file" name="user[profile]">
+<%= image_tag ("/assets/Cat03.jpg"), class: "img-responsive"%>
+  <img src="data:image/png;base64, <%= url_for(@user.profile) %>" alt="Red dot" />
+   
+    <%= image_tag @file_path , class: "img-responsive"%>

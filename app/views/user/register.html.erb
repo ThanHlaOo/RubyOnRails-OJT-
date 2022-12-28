@@ -1,4 +1,3 @@
-<%= stylesheet_link_tag "style", "data-turbo-track": "reload" %>
 <%= render partial: "layouts/header" %>
 <div class="login-header">
   <h1> Register </h1>
@@ -106,7 +105,8 @@
     <label> Profile </label>
   </td>
   <td>
-    <%= form.file_field :profile, class: "user-profile" %>
+
+    <%= form.file_field :profile, class: "user-profile"%>
      <% @user.errors.full_messages_for(:profile).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>

@@ -8,7 +8,7 @@
     <li><a href="/users/new">Create User</a></li>
     <li id="dropdown-link"><a href=""><%= User.find(session[:user_id]).name.titleize %></a><i class="fa fa-user setting-icon" aria-hidden="true"></i><%= fa_icon 'caret-down', class: 'fa-solid' %></li>
     <div id="dropdown-menu">
-      <a href="#" class="dropdown-item">Profile</a>
+      <a href="/user/profile" class="dropdown-item">Profile</a>
       <a href="/logout" class="dropdown-item">Logout</a>
     </div>
   </ul>

@@ -1,0 +1,106 @@
+
+<%= render partial: "layouts/header" %>
+<div class="login-header">
+  <h1> Profile Edit</h1>
+</div>
+
+<%= form_with(model: @user, url:  update_profile_path(@user), method: :patch, html: { class: 'register-form user-register' , multipart: true}) do |form| %>
+<table class="">
+ <tr>
+  <td>
+    <label> Name </label>
+  </td>
+  <td><%= @user.password%>
+      <%= form.text_field :name, value: @user.name %>
+       <% @user.errors.full_messages_for(:name).each do |message| %>
+      <div class="validation-error"><%= message %></div>
+      <% end %>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> E-Mail Address </label>
+  </td>
+  <td>
+    <input type="text"  name="user[email]" value="<%= @user.email %>">
+        <% if @user.errors.any? %>
+    <% if error = @user.errors.full_messages_for(:email).first %>
+      <div class="validation-error"><%= error %></div>
+    <% end %>
+  <% end %>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label for="type"> Type </label>
+  </td>
+  <td>
+      <%= form.select :role, options_for_select([["Admin", 1], ["User", 0]], @user.role), {}, class: "profile-role" %>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Phone </label>
+  </td>
+  <td>
+    <input type="text"  name="user[phone]" value="<%= @user.phone %>">
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Date of birth </label>
+  </td>
+  <td>
+  
+<input type="datetime-local" name="user[dob]" value="<%= @user.dob.strftime("%Y-%m-%dT%H:%M:%S")%>">
+   
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label>Address </label>
+  </td>
+  <td>
+  <textarea name="user[address]" id="" cols="48" rows="5"><%= @user.address %></textarea>
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> Old Profile </label>
+  </td>
+  <td>
+       <% if @user.profile.attached? %>
+            <%= image_tag rails_blob_path(@user.profile), class: "img-responsive" %>
+          <% end %>
+     <% @user.errors.full_messages_for(:profile).each do |message| %>
+      <div class="validation-error"><%= message %></div>
+      <% end %>
+   
+  </td>
+ </tr>
+  <tr>
+  <td>
+    <label> New Profile </label>
+  </td>
+  <td>
+     <%= form.file_field :profile, class: "user-profile" %>
+     <% @user.errors.full_messages_for(:profile).each do |message| %>
+      <div class="validation-error"><%= message %></div>
+      <% end %>
+   
+  </td>
+ </tr>
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+   <button type="submit" class="register-btn">Edit</button>
+    <button type="reset" class="clear-btn profile-clear-btn">Clear</button>
+    <a href="" class="change-password-link">Change Password</a>
+ </div>
+  </td>
+  </tr>
+ </table>
+<%end%>
+   <%= render partial: "layouts/footer" %>
