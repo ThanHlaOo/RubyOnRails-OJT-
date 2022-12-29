@@ -1,4 +1,3 @@
-<%= render partial: "layouts/header" %>
 <div class="login-header">
   <h1> Reset Password </h1>
 </div>
@@ -7,44 +6,30 @@
         <p  class="validation-error"> <%= error%></p>
       <% end %>
     <% end%>
-<%= form_with model: @user, url: '/password', method: :patch, class: "create-form register-form password-change-form" ,local: true do |form| %>
+<%= form_with model: @user, url: password_reset_path(params[:id]), method: :patch, class: "create-form register-form password-change-form" ,local: true do |form| %>
   <table class="">
  <tr>
   <td>
-     <%= form.label :current_password, "Password" %>
+     <%= form.label :password, "Password:" %>
   
   </td>
   <td>
-  <%= form.password_field :current_password %>
-         <% if flash[:current_password] %>
-            <p class="validation-error"> <%= flash[:current_password]%></p>
+    <input type="password" name="user[password]" id="password">
+         <% if flash[:password] %>
+            <p class="validation-error"> <%= flash[:password]%></p>
         <% end%>
      <% if flash[:incorrect_password] %>
         <p  class="validation-error"> <%= flash[:incorrect_password]%></p>
         <% end%>
   </td>
  </tr>
-  <tr>
-  <td>
-     <%= form.label :password, "New Password" %>
-
-  </td>
-  <td>
-      <%= form.password_field :password %>
-               <% if flash[:password] %>
-            <p class="validation-error"> <%= flash[:password]%></p>
-        <% end%>
-  
-  </td>
- </tr>
    <tr>
   <td>
- <%= form.label :password_confirmation, "New Confirm Password" %>
+ <%= form.label :password_confirmation, "Password Confirmation:" %>
 
   </td>
   <td>
-      
-  <%= form.password_field :password_confirmation %>
+      <input type="password" name="user[password_confirmation]" id="password_confirmation">
             <% if flash[:password_confirmation] %>
             <p class="validation-error"> <%= flash[:password_confirmation]%></p>
         <% end%>
@@ -66,5 +51,3 @@
  </table>
  
 <% end %>
-
-    <%= render partial: "layouts/footer" %>

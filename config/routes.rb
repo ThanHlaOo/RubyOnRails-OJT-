@@ -28,9 +28,9 @@ Rails.application.routes.draw do
   post "/users/search", to: "user#search"
   get '/password/edit', to: 'user#edit_password'
   patch '/password', to: 'user#update_password'
-  get "/password/reset", to: "password_resets#new"
-  post "/password/reset", to: "password_resets#create"
-
+  #get "/password/reset", to: "password_resets#new"
+  #post "/password/reset", to: "password_resets#create"
+  resources :password_resets
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

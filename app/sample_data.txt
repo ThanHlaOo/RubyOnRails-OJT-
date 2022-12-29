@@ -17,3 +17,5 @@
   <img src="data:image/png;base64, <%= url_for(@user.profile) %>" alt="Red dot" />
    
     <%= image_tag @file_path , class: "img-responsive"%>
+	
+	  <a href="/password/reset" class="forget-password">forgotten password?</a>

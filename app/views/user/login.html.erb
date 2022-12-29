@@ -10,6 +10,9 @@
       <p  class="errors"> <%= error%></p>
     <% end %>
   <% end%>
+   <% if flash[:notice] %>
+      <p  class="errors"> <%= flash[:notice]%></p>
+  <% end%>
 <form action = "/login" method = "POST"> 
   <input type = "hidden" name ="authenticity_token" value="<%= form_authenticity_token %>">
   <div class="input-group">
@@ -35,7 +38,8 @@
   
   <div class="input-group btn-group">
     <input type="checkbox" name="login[remember-me]" >Remember Me
-    <a href="/password/reset" class="forget-password">forgotten password?</a>
+  
+    <%= link_to "forgotten password?", new_password_reset_path , class: "forget-password"%>
   <button type="submit" class="login-btn">Login</button>
     <a href="/register" class="create-account">Create account?</a>
     <i class="fa fa-user-plus fa-2x user-icon" aria-hidden="true"></i>

@@ -7,7 +7,10 @@
         <p  class="validation-error"> <%= error%></p>
       <% end %>
     <% end%>
-<%= form_with model: @user, url: '/password/reset', method: :post, class: "create-form register-form password-change-form" ,local: true do |form| %>
+        <% if flash[:alert] %>
+        <p  class="validation-error"> <%= flash[:alert]%></p>
+      <% end%>
+<%= form_with model: @user, url: password_resets_path(@user), method: :post, class: "create-form register-form password-change-form" ,local: true do |form| %>
   <table class="">
  <tr>
   <td>
@@ -15,7 +18,7 @@
   
   </td>
   <td>
-  <%= form.email_field :email %>
+  <input type="text" name="user[email]" id="email">
          <% if flash[:email] %>
             <p class="validation-error"> <%= flash[:email]%></p>
         <% end%>
