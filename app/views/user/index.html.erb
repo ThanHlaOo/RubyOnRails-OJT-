@@ -4,6 +4,9 @@
   <h1> User List</h1>
   
 </div>
+ <% if flash[:notice] %>
+    <p class="success"> <%= flash[:notice]%></p>
+  <% end%>
  <% if flash[:user_created] %>
     <%  flash[:user_created].each do |message| %>
       <p  class="success"> <%= message%></p>
@@ -24,15 +27,15 @@
   <div class="user-list">
  
 
-  <%= form_with(url: '/users/search', method: :get, html: { class: 'list-form' }) do |form| %>
+  <%= form_with(url: '/users/search', method: :post, html: { class: 'list-form' }) do |form| %>
 		<label for="name">Name:</label>
-		<input type="text" name="search[name]" class="user-input" id="name">
+		<input type="text" name="keyword[name]" class="user-input" id="name">
 		<label for="email">Email:</label>
-		<input type="text" name="search[email]" class="user-input" id="email">
+		<input type="text" name="keyword[email]" class="user-input" id="email">
 		<label for="from">From:</label>
-		<input type="date" name="search[from_date]" class="user-input" id="from">
+		<input type="date" name="keyword[from_date]" class="user-input" id="from">
 		<label for="to">To:</label>
-		<input type="date" name="search[to_date]" class="user-input" id="to">
+		<input type="date" name="keyword[to_date]" class="user-input" id="to">
     <button type="submit" class="register-btn list-btn user-search-btn">Search</button>
   <% end %>
   </div>

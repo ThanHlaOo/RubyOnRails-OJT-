@@ -1,0 +1,39 @@
+
+<div class="login-header">
+  <h1> Forget Password?</h1>
+</div>
+    <% if flash[:notice] %>
+      <%  flash[:notice].each do |error| %>
+        <p  class="validation-error"> <%= error%></p>
+      <% end %>
+    <% end%>
+<%= form_with model: @user, url: '/password/reset', method: :post, class: "create-form register-form password-change-form" ,local: true do |form| %>
+  <table class="">
+ <tr>
+  <td>
+     <%= form.label :email, "Email:" %>
+  
+  </td>
+  <td>
+  <%= form.email_field :email %>
+         <% if flash[:email] %>
+            <p class="validation-error"> <%= flash[:email]%></p>
+        <% end%>
+     <% if flash[:incorrect_password] %>
+        <p  class="validation-error"> <%= flash[:incorrect_password]%></p>
+        <% end%>
+  </td>
+ </tr>
+  
+  <tr>
+  <td>
+  </td>
+  <td>
+  <div class="input-group register-btn-group">
+     <%= form.submit 'Reset Password', class: "register-btn password-change-btn" %>
+ </div>
+  </td>
+  </tr>
+ </table>
+ 
+<% end %>

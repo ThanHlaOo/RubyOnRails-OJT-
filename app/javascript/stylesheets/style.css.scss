@@ -696,8 +696,10 @@ input[type="checkbox"]{
   padding-top: 48px;
 }
 .img-responsive {
-  width: 150px ;
+  width: 150px;
   height: 150px;
+  border-radius: 5px;
+  margin: 10px 0;
 }
 .profile-container {
   display: flex;
@@ -709,6 +711,12 @@ input[type="checkbox"]{
 }
 .profile-clear-btn {
   padding: 8px 22px !important;
+}
+.password-change-btn {
+  width: fit-content !important;
+}
+.password-change-form tr input{
+  margin: 10px 0;
 }
 //  Footer
 footer {

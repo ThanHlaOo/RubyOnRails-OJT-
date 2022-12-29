@@ -17,7 +17,7 @@
     <label> Name </label>
   </td>
   <td>
-      <%= form.text_field :name %>
+      <%= form.text_field :name,  value: session[:user] ? session[:user]["name"]:"" %>
        <% @user.errors.full_messages_for(:name).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>
@@ -28,7 +28,7 @@
     <label> E-Mail Address </label>
   </td>
   <td>
-    <input type="text"  name="user[email]">
+    <input type="text"  name="user[email]" value="<%= session[:user] ? session[:user]["email"]:"" %>">
 
       <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:email).first %>
@@ -43,7 +43,7 @@
     <label> Password </label>
   </td>
   <td>
-    <input type="password"  name="user[password]">
+    <input type="password"  name="user[password]" value="<%= session[:user] ? session[:user]["password"]:"" %>">
          <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:password).first %>
     <div class="validation-error"><%= error %></div>
@@ -56,7 +56,7 @@
     <label> Password confirmation </label>
   </td>
   <td>
-    <%= form.password_field :password_confirmation %>
+    <%= form.password_field :password_confirmation, value: session[:user] ? session[:user]["password_confirmation"]:"" %>
        <% if @user.errors.any? %>
   <% if error = @user.errors.full_messages_for(:password_confirmation).second %>
     <div class="validation-error"><%= error %></div>
@@ -81,7 +81,7 @@
     <label> Phone </label>
   </td>
   <td>
-    <input type="text"  name="user[phone]">
+    <input type="text"  name="user[phone]" value="<%= session[:user] ? session[:user]["phone"]:"" %>">
   </td>
  </tr>
   <tr>
@@ -89,7 +89,7 @@
     <label> Date of birth </label>
   </td>
   <td>
-    <input type="date"  name="user[dob]">
+    <input type="date"  name="user[dob]" value="<%= session[:user] ? session[:user]["dob"]:"" %>">
   </td>
  </tr>
   <tr>
@@ -97,7 +97,7 @@
     <label>Address </label>
   </td>
   <td>
-  <textarea name="user[address]" id="" cols="48" rows="5"></textarea>
+  <textarea name="user[address]" id="" cols="48" rows="5"><%= session[:user] ? session[:user]["address"]:"" %></textarea>
   </td>
  </tr>
   <tr>
