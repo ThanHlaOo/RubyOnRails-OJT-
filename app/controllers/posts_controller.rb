@@ -102,7 +102,7 @@ class PostsController < ApplicationController
   end 
   def search 
     key = params[:post][:keyword]
-    @posts = Post.where("title LIKE ? OR description LIKE ?", "%#{key}%", "%#{key}%")
+    @posts = Post.paginate(page: params[:page], per_page: 10).where("title LIKE ? OR description LIKE ?", "%#{key}%", "%#{key}%")
     render :index
   end
 

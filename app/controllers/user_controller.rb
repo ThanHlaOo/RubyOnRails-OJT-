@@ -1,8 +1,11 @@
 class UserController < ApplicationController
   
   before_action :check_permissions, only: [:index, :register, :confirmRegister, :saveRegister]
+  before_action do
+    ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
+  end
   def index
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 10)
   end
   def login
     @user = User.new
@@ -47,6 +50,11 @@ class UserController < ApplicationController
     # @user = User.create!(register_params)
     @user.create_user_id = session[:user_id]
     @user.updated_user_id = session[:user_id]
+    # url = ActiveStorage::Blob.service.url_for_direct_upload(key: "screenshot.png", content_type: "image/png")
+    @user.profile.attach(params[:user][:profile])
+    session[:profile_url] = @user.profile.url
+    # @user.profile.attach(params[:user][:profile])
+    # session[:profile] = @user.profile
     session[:user] ||= {}
     [:email, :name, :password, :password_confirmation, :address, :dob, :role, :phone].each do |attribute|
       session[:user][attribute] = @user.send(attribute)
@@ -55,19 +63,20 @@ class UserController < ApplicationController
     # @user.profile = register_params[:profile].open
 
     if @user.valid?
-      if register_params[:profile]
-        @name = register_params[:profile].original_filename
-        @user_name = register_params[:name]
+      if params[:user][:profile]
+        @name = params[:user][:profile].original_filename
+        @user_name = params[:user][:name]
         @file_name = @user_name+@name
         path = File.join("app", "assets", "images", @file_name)
-        # @user.profile.attach(register_params[:profile])
-        File.open(path, "wb") { |f| f.write(register_params[:profile].read) }
+        # @user.profile.attach(params[:user][:profile])
+        File.open(path, "wb") { |f| f.write(params[:user][:profile].read) }
       end
 
       render :confirmRegister
       # redirect_to "/user/registerConfirm"
     else 
-      render :register
+      # render :register
+      redirect_to "/users/new"
     end
    
   end
@@ -89,18 +98,41 @@ class UserController < ApplicationController
     @user = User.new(register_params)
     @user.create_user_id = session[:user_id]
     @user.updated_user_id = session[:user_id]
-    if session[:user]
-      session.delete(:user)
-    end
-    @user.profile.attach(register_params[:profile])
-    if @user.save
-       flash[:user_created] = ["User Created Successfully."]
-       redirect_to '/users'
-    else
-      # flash[:register_errors] = @user.errors.full_messages
-      # redirect_to '/register'
-      render :register
-    end
+    puts session[:profile_url]
+    # Download the contents of the blob to a temporary file
+    # contents = ActiveStorage::Blob.service.download(session[:profile_url])
+    # tempfile = Tempfile.new
+    # tempfile.binmode
+    # tempfile.write(contents)
+    # tempfile.rewind
+
+    # Create a new blob from the temporary file
+    # blob = ActiveStorage::Blob.create_and_upload!(io: tempfile, filename: "screenshot.png", content_type: "image/png")
+
+    # Attach the blob to the model object
+    # @user.profile.attach(blob)
+
+    # Save the model object to the database
+
+    # tempfile = ActiveStorage::Blob.download_blob_to_tempfile(session[:profile_url])
+    # blob = ActiveStorage::Blob.create_and_upload!(io: tempfile, filename: "screenshot.png", content_type: "image/png")
+    # @user.profile.attach(blob)
+    @user.profile.attach(ActiveStorage::Blob.create_from_url(session[:profile_url]))
+    @user.save
+    # if session[:user]
+    #   session.delete(:user)
+    # end
+    # puts register_params[:profile]
+    # @user.profile.attach(register_params[:profile])
+    
+    # if @user.save
+    #    flash[:user_created] = ["User Created Successfully."]
+    #    redirect_to '/users'
+    # else
+    #   # flash[:register_errors] = @user.errors.full_messages
+    #   # redirect_to '/register'
+    #   render :register
+    # end
   end
 
   def profile 
@@ -129,7 +161,7 @@ class UserController < ApplicationController
     key_to = search_params[:to_date]
     key_from = search_params[:from_date]
     # @users = User.where("name LIKE ? OR email LIKE ?", "%#{key_name}%", "%#{key_email}%")
-    @users = User.all
+    @users = User.paginate(page: params[:page], per_page: 10)
     @users = @users.where("UPPER(name) LIKE UPPER(:name)", name: "%#{key_name}%") if key_name.present?
     @users = @users.where("UPPER(email) LIKE UPPER(:email)", email: "%#{key_email}%") if key_email.present?
     @users = @users.where(created_at: key_from..key_to) if key_from.present? && key_to.present?
@@ -189,7 +221,7 @@ class UserController < ApplicationController
   end
   private
   def register_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :phone, :dob, :address, :profile)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :role, :phone, :dob, :address)
   end
   private
   def edit_profile_params

@@ -1,10 +1,11 @@
 <div class="login-header">
   <h1> Reset Password </h1>
 </div>
-    <% if flash[:notice] %>
-      <%  flash[:notice].each do |error| %>
-        <p  class="validation-error"> <%= error%></p>
-      <% end %>
+    <% if flash[:confirmation_error] %>
+        <p  class="errors"> <%= flash[:confirmation_error]%></p>
+    <% end%>
+      <% if flash[:alert] %>
+        <p  class="errors"> <%= flash[:alert]%></p>
     <% end%>
 <%= form_with model: @user, url: password_reset_path(params[:id]), method: :patch, class: "create-form register-form password-change-form" ,local: true do |form| %>
   <table class="">
@@ -15,11 +16,8 @@
   </td>
   <td>
     <input type="password" name="user[password]" id="password">
-         <% if flash[:password] %>
-            <p class="validation-error"> <%= flash[:password]%></p>
-        <% end%>
-     <% if flash[:incorrect_password] %>
-        <p  class="validation-error"> <%= flash[:incorrect_password]%></p>
+         <% if flash[:password_validation_errors] %>
+            <p class="validation-error"> <%= flash[:password_validation_errors]%></p>
         <% end%>
   </td>
  </tr>
@@ -30,11 +28,8 @@
   </td>
   <td>
       <input type="password" name="user[password_confirmation]" id="password_confirmation">
-            <% if flash[:password_confirmation] %>
-            <p class="validation-error"> <%= flash[:password_confirmation]%></p>
-        <% end%>
-          <% if flash[:confirmation_error] %>
-            <p class="validation-error"> <%= flash[:confirmation_error]%></p>
+            <% if flash[:confirm_password_validation_errors] %>
+            <p class="validation-error"> <%=  flash[:confirm_password_validation_errors]%></p>
         <% end%>
   </td>
  </tr>

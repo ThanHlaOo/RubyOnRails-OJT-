@@ -718,6 +718,39 @@ input[type="checkbox"]{
 .password-change-form tr input{
   margin: 10px 0;
 }
+//Pagniation 
+.pagination {
+  display: flex;
+  justify-content: end;
+  margin-top: 5px;
+  padding: 0;
+}
+
+/* Define the style for the pagination links */
+.pagination a, .pagination em, .pagination span {
+  display: block;
+  padding: 10px 15px;
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  text-decoration: none;
+  height: 20px;
+}
+
+/* Define the style for the active pagination link */
+.pagination .current {
+  background-color: #337ab7;
+  color: #fff;
+  border-color: #337ab7;
+  height: 22px;
+}
+
+/* Define the style for the disabled pagination links */
+.pagination .disabled a {
+  color: #ccc;
+  border-color: #ddd;
+  cursor: not-allowed;
+}
 //  Footer
 footer {
   position: relative;

@@ -19,3 +19,6 @@
     <%= image_tag @file_path , class: "img-responsive"%>
 	
 	  <a href="/password/reset" class="forget-password">forgotten password?</a>
+
+
+#<ActiveStorage::Attached::One:0x00000190c434c370> is changing and giving error "ActiveSupport::MessageVerifier::InvalidSignature" so how to active storage object temporary stored in one action  and save store in another action

@@ -2,14 +2,12 @@
 <div class="login-header">
   <h1> Forget Password?</h1>
 </div>
-    <% if flash[:notice] %>
-      <%  flash[:notice].each do |error| %>
-        <p  class="validation-error"> <%= error%></p>
-      <% end %>
+    <% if flash[:alert] %>
+    <p  class="errors"> <%= flash[:alert]%></p>
     <% end%>
-        <% if flash[:alert] %>
-        <p  class="validation-error"> <%= flash[:alert]%></p>
-      <% end%>
+    <% if flash[:notice] %>
+      <p  class="errors"> <%= flash[:notice]%></p>
+    <% end%>
 <%= form_with model: @user, url: password_resets_path(@user), method: :post, class: "create-form register-form password-change-form" ,local: true do |form| %>
   <table class="">
  <tr>
@@ -19,11 +17,8 @@
   </td>
   <td>
   <input type="text" name="user[email]" id="email">
-         <% if flash[:email] %>
-            <p class="validation-error"> <%= flash[:email]%></p>
-        <% end%>
-     <% if flash[:incorrect_password] %>
-        <p  class="validation-error"> <%= flash[:incorrect_password]%></p>
+         <% if flash[:email_validation_errors]%>
+            <p class="validation-error"> <%= flash[:email_validation_errors]%></p>
         <% end%>
   </td>
  </tr>

@@ -103,12 +103,11 @@
     <label> Profile </label>
   </td>
   <td>
-  
     <%= image_tag ("/assets/#{@file_name}"), class: "img-responsive"%>
      <% @user.errors.full_messages_for(:profile).each do |message| %>
       <div class="validation-error"><%= message %></div>
       <% end %>
-   
+   <input type="text" name="user[profile]" id="" value="<%=@user.profile%>">
   </td>
  </tr>
   <tr>
