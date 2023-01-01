@@ -52,7 +52,7 @@
   </td>
   <td>
   
-<input type="datetime-local" name="user[dob]" value="<%= @user.dob.strftime("%Y-%m-%dT%H:%M:%S")%>">
+<input type="datetime-local" name="user[dob]" value="<%= @user.dob != nil ?  @user.dob.strftime("%Y-%m-%dT%H:%M:%S"): ""%>">
    
   </td>
  </tr>

@@ -107,9 +107,9 @@
   <td>
 
     <%= form.file_field :profile, class: "user-profile"%>
-     <% @user.errors.full_messages_for(:profile).each do |message| %>
-      <div class="validation-error"><%= message %></div>
-      <% end %>
+      <% if flash[:profile] %>
+          <p class="validation-error"> <%= flash[:profile]%></p>
+      <% end%>
    
   </td>
  </tr>

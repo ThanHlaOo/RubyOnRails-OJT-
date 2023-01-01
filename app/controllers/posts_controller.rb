@@ -3,8 +3,11 @@ class PostsController < ApplicationController
   require 'activerecord-import'
   before_action :check_permissions, only: [:index, :new, :confirm, :edit, :editConfirm, :update, :delete]
   def index
-    # @posts = Post.all
-    @posts = Post.paginate(page: params[:page], per_page: 10)
+    if User.find(session[:user_id]).role == '1'
+      @posts = Post.paginate(page: params[:page], per_page: 10)
+    else
+      @posts = Post.where(create_user_id: session[:user_id]).paginate(page: params[:page], per_page: 10)
+    end
   end
   def new
     @post = Post.new

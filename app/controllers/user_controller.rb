@@ -1,11 +1,16 @@
 class UserController < ApplicationController
-  
+  require 'open-uri'
   before_action :check_permissions, only: [:index, :register, :confirmRegister, :saveRegister]
   before_action do
     ActiveStorage::Current.url_options = { protocol: request.protocol, host: request.host, port: request.port }
   end
   def index
-    @users = User.paginate(page: params[:page], per_page: 10)
+    if User.find(session[:user_id]).role == '1'
+      @users = User.paginate(page: params[:page], per_page: 10)
+    else
+      @users = User.where(create_user_id: session[:user_id]).paginate(page: params[:page], per_page: 10)
+    end
+  
   end
   def login
     @user = User.new
@@ -46,37 +51,31 @@ class UserController < ApplicationController
   end
 
   def confirmRegister
+    if params[:user][:profile] == nil
+      flash[:profile] = 'Profile is required!'
+      render :register
+      return
+    end
     @user = User.new(register_params)
-    # @user = User.create!(register_params)
     @user.create_user_id = session[:user_id]
     @user.updated_user_id = session[:user_id]
-    # url = ActiveStorage::Blob.service.url_for_direct_upload(key: "screenshot.png", content_type: "image/png")
-    @user.profile.attach(params[:user][:profile])
-    session[:profile_url] = @user.profile.url
-    # @user.profile.attach(params[:user][:profile])
-    # session[:profile] = @user.profile
+    session[:profile_url] = params[:user][:profile]
     session[:user] ||= {}
     [:email, :name, :password, :password_confirmation, :address, :dob, :role, :phone].each do |attribute|
       session[:user][attribute] = @user.send(attribute)
-      puts "session"
     end
-    # @user.profile = register_params[:profile].open
-
     if @user.valid?
       if params[:user][:profile]
         @name = params[:user][:profile].original_filename
         @user_name = params[:user][:name]
         @file_name = @user_name+@name
         path = File.join("app", "assets", "images", @file_name)
-        # @user.profile.attach(params[:user][:profile])
         File.open(path, "wb") { |f| f.write(params[:user][:profile].read) }
       end
 
       render :confirmRegister
-      # redirect_to "/user/registerConfirm"
     else 
-      # render :register
-      redirect_to "/users/new"
+       render :register
     end
    
   end
@@ -94,11 +93,31 @@ class UserController < ApplicationController
     
   end
   def saveRegister
-    puts "this is register meethod"
     @user = User.new(register_params)
     @user.create_user_id = session[:user_id]
     @user.updated_user_id = session[:user_id]
     puts session[:profile_url]
+    session[:profile_url][:tempfile] = Tempfile.new
+    filename = File.basename(ActionDispatch::Http::UploadedFile.new(session[:profile_url])).to_s
+    blob = ActiveStorage::Blob.create_and_upload!(
+      io: StringIO.new(ActionDispatch::Http::UploadedFile.new(session[:profile_url]).read),
+      filename:  filename,
+      content_type: 'image/*'
+    )
+    @user.profile.attach(blob)
+    if session[:user] ||  session[:profile_url]
+      session.delete(:profile_url)
+      session.delete(:user)
+    end
+  
+    if @user.save
+      flash[:user_created] = ["User Created Successfully."]
+      redirect_to '/users'
+    else
+      # flash[:register_errors] = @user.errors.full_messages
+      # redirect_to '/register'
+      render :register
+    end
     # Download the contents of the blob to a temporary file
     # contents = ActiveStorage::Blob.service.download(session[:profile_url])
     # tempfile = Tempfile.new
@@ -117,22 +136,16 @@ class UserController < ApplicationController
     # tempfile = ActiveStorage::Blob.download_blob_to_tempfile(session[:profile_url])
     # blob = ActiveStorage::Blob.create_and_upload!(io: tempfile, filename: "screenshot.png", content_type: "image/png")
     # @user.profile.attach(blob)
-    @user.profile.attach(ActiveStorage::Blob.create_from_url(session[:profile_url]))
-    @user.save
-    # if session[:user]
-    #   session.delete(:user)
-    # end
-    # puts register_params[:profile]
-    # @user.profile.attach(register_params[:profile])
-    
-    # if @user.save
-    #    flash[:user_created] = ["User Created Successfully."]
-    #    redirect_to '/users'
-    # else
-    #   # flash[:register_errors] = @user.errors.full_messages
-    #   # redirect_to '/register'
-    #   render :register
-    # end
+    #file_contents = open(session[:profile_url]).read
+    #blob = ActiveStorage::Blob.create_and_upload!(
+    #  io: StringIO.new(file_contents),
+    #  filename: File.basename(session[:profile_url]),
+    #  content_type: 'image/*'
+    #)
+
+    #@user.profile.attach(ActiveStorage::Blob.create_from_url(session[:profile_url]))
+    #@user.save
+   
   end
 
   def profile 
@@ -144,8 +157,6 @@ class UserController < ApplicationController
     puts @user
   end
   def updateProfile
-    # puts "this is updateprofile"
-    # puts edit_profile_params
     @user = User.find(params[:id])
     if  @user.update(edit_profile_params)
       flash[:user_updated] = ['User profile Successfully Updated.']
